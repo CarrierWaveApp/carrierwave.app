@@ -32,6 +32,7 @@ jobs:
 
           # Copy static marketing files
           cp index.html _site/
+          cp mission.html _site/
           cp privacy.html _site/
           cp icon.png _site/
           cp CNAME _site/
