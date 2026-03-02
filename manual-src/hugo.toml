@@ -6,7 +6,7 @@ theme = 'carrier-wave'
 [params]
   description = 'Documentation for Carrier Wave - iOS QSO logging for amateur radio'
   appStoreURL = 'https://apps.apple.com/app/carrier-wave'
-  changelogURL = 'https://github.com/jsvana/carrier_wave/blob/main/CHANGELOG.md'
+  changelogURL = 'https://github.com/CarrierWaveApp/carrier_wave/blob/main/CHANGELOG.md'
 
 [markup]
   [markup.highlight]
