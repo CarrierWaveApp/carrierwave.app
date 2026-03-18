@@ -18,6 +18,8 @@ The default view shows your most recent contacts in reverse chronological order.
 - **Band and mode**
 - **RST exchanged**
 - **Park references** (POTA, with park names when available)
+- **SOTA reference** (if applicable)
+- **WWFF reference** (if applicable)
 - **Sync status indicators** (one badge per service)
 
 Tap any entry to view the full QSO detail.
@@ -59,9 +61,18 @@ For precise searches, use field-specific queries.
 | `grid:CM87` | Grid square (4 or 6 char) |
 | `park:US-0001` | Specific POTA park |
 | `park:K-*` | Any US POTA park (wildcard) |
+| `theirpark:US-0001` | Their POTA park reference |
+| `sota:W7W/KG-001` | SOTA summit reference |
+| `wwff:KFF-1234` | WWFF reference |
 | `freq:14.074` | Specific frequency |
 | `freq:>14.0` | Above 14 MHz |
 | `power:>100` | Over 100W |
+| `rig:IC-705` | Radio/rig name (partial match) |
+| `antenna:EFHW` | Antenna description (partial match) |
+| `notes:*portable*` | Notes field search |
+| `country:Japan` | DXCC entity name |
+| `dxcc:339` | DXCC entity number |
+| `contest:*` | QSOs logged during a contest |
 
 #### Source Filters
 
@@ -74,6 +85,7 @@ Filter by import or sync source:
 | `source:pota` | Downloaded from POTA |
 | `source:lofi` | Synced from Ham2K LoFi |
 | `source:lotw` | Downloaded from LoTW |
+| `source:eqsl` | Imported from eQSL |
 | `source:logger` | Logged in Carrier Wave |
 
 #### Date Queries
@@ -96,8 +108,11 @@ Filter by import or sync source:
 | `confirmed` | Confirmed via LoTW |
 | `confirmed:lotw` | LoTW confirmed |
 | `confirmed:qrz` | QRZ QSL confirmed |
+| `confirmed:eqsl` | eQSL confirmed |
 | `synced:pota` | Uploaded to POTA |
 | `synced:qrz` | Uploaded to QRZ |
+| `synced:clublog` | Uploaded to Club Log |
+| `synced:eqsl` | Uploaded to eQSL |
 | `pending` | Awaiting sync to any service |
 | `pending:yes` | Same as `pending` |
 
@@ -165,6 +180,18 @@ park:* theirpark:*
 confirmed:lotw -synced:qrz
 ```
 
+**All contacts using a specific radio:**
+
+```
+rig:IC-705 after:30d
+```
+
+**SOTA contacts:**
+
+```
+sota:*
+```
+
 ### Quick Filters
 
 The filter menu (three horizontal lines icon) provides common search presets:
@@ -225,6 +252,7 @@ Tap any contact to view the full QSO record. The detail view shows:
 - **My park** (POTA reference, with name)
 - **Their park** (for P2P contacts)
 - **SOTA reference** (if applicable)
+- **WWFF reference** (if applicable)
 - **DXCC entity** (country name and number)
 
 ### Notes Section
@@ -237,7 +265,7 @@ Shows per-service sync indicators:
 - **Service badges** (colored pills showing status)
 - **Status text** (Present, Submitted, Rejected, Pending Upload)
 - **Last confirmed date** (if available)
-- **Confirmation stars** (LoTW, QRZ QSL)
+- **Confirmation stars** (LoTW, QRZ QSL, eQSL)
 
 **Badge colors:**
 
@@ -247,7 +275,7 @@ Shows per-service sync indicators:
 - **Gray:** Pending upload (service not configured)
 
 ### Source Section
-- **Import source** (Logger, LoFi, QRZ, POTA, etc.)
+- **Import source** (Logger, LoFi, QRZ, POTA, eQSL, etc.)
 - **Imported date**
 - **QRZ Log ID** (if synced from QRZ)
 - **Raw {{< term "ADIF" >}}** (expandable disclosure for debugging)
@@ -256,15 +284,15 @@ Shows per-service sync indicators:
 
 From the QSO detail view, you can:
 
-- **Edit** — Modify any field (changes saved locally and re-queued for sync)
-- **Delete** — Soft delete (hides QSO, prevents future sync)
+- **Edit** -- Modify any field (changes saved locally and re-queued for sync)
+- **Delete** -- Soft delete (hides QSO, prevents future sync)
 
 ## Editing QSOs
 
 Tap **Edit** from the detail view to modify any field. Changes are:
 
 1. **Saved locally** to your SwiftData store
-2. **Re-queued for sync** to services that support updates (QRZ, POTA, Club Log)
+2. **Re-queued for sync** to services that support updates (QRZ, POTA, Club Log, eQSL)
 
 **Note:** Some services don't support updating previously uploaded QSOs. Updates may only apply to future uploads.
 
@@ -274,10 +302,10 @@ Tap **Delete** from the detail view to remove a contact.
 
 **Deletion behavior:**
 
-- **Soft delete** — QSOs are hidden, not permanently removed from the database
+- **Soft delete** -- QSOs are hidden, not permanently removed from the database
 - **Hidden QSOs** don't appear in lists, stats, maps, or activations
-- **Sync prevention** — Hidden QSOs won't sync to cloud services
-- **Reversible** — View and restore hidden QSOs in **Settings → Developer → Hidden QSOs**
+- **Sync prevention** -- Hidden QSOs won't sync to cloud services
+- **Reversible** -- View and restore hidden QSOs in **Settings -> Developer -> Hidden QSOs**
 
 **Important:** Deletion does NOT remove QSOs from cloud services. Most services (QRZ, POTA, LoTW) don't support remote deletion via API.
 
@@ -336,7 +364,7 @@ See [Service Sync Flow](/reference/sync-flow/) for POTA upload details.
 
 ## See Also
 
-- [Dashboard & Statistics](/reference/dashboard/) — View aggregated stats and drilldown views
-- [Service Sync Flow](/reference/sync-flow/) — Understand sync behavior and status indicators
-- [Logger](/reference/logger/) — Log new contacts during activations
-- [WebSDR Recording](/reference/websdr/) — Remote SDR integration and playback
+- [Dashboard & Statistics](/reference/dashboard/) -- View aggregated stats and drilldown views
+- [Service Sync Flow](/reference/sync-flow/) -- Understand sync behavior and status indicators
+- [Logger](/reference/logger/) -- Log new contacts during activations
+- [WebSDR Recording](/reference/websdr/) -- Remote SDR integration and playback

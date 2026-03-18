@@ -21,14 +21,14 @@ Existing users see a one-time prompt when visiting the Activity tab. You can acc
 
 If you skipped community setup:
 
-1. Go to **Settings** → **Activities**
+1. Go to **Settings** -> **Activities**
 2. Toggle **Enable community features** on
 
 The app automatically registers your account using your station {{< term "callsign" >}} from Logger settings.
 
 ### Privacy Controls
 
-The **Enable community features** toggle in Settings → Activities controls your discoverability:
+The **Enable community features** toggle in Settings -> Activities controls your discoverability:
 
 - **On** - Your {{< term "callsign" >}} appears in friend search and you can participate in challenges and clubs
 - **Off** - You remain hidden from search but retain your local data
@@ -37,11 +37,23 @@ The **Enable community features** toggle in Settings → Activities controls you
 
 To permanently delete your community account:
 
-1. Go to **Settings** → **Activities**
+1. Go to **Settings** -> **Activities**
 2. Scroll to **Delete Community Account**
 3. Confirm deletion
 
 This removes all your community data from the server, including challenge progress, friends, and activity history. The deletion cascades to all related records. This action cannot be undone.
+
+### Community Features Onboarding
+
+When you first enable community features, a guided onboarding flow walks you through:
+
+1. **Account creation** - Registers your callsign with the activities server
+2. **Friend discovery** - Suggests friends based on your QSO history
+3. **Club detection** - Automatically identifies clubs you belong to via Polo notes
+4. **Challenge browse** - Shows active challenges you can join
+5. **Privacy settings** - Confirms your visibility preferences
+
+This onboarding ensures you're set up to get the most from community features immediately.
 
 ## Friends
 
@@ -91,6 +103,8 @@ Tap any {{< term "callsign" >}} in the Activity feed to view a friend's profile.
 - Total activities count
 - Activities this week
 - Friendship start date (when you became friends)
+- **Recordings shared** - Audio clips the friend has shared publicly
+- **QSO timeline** - A visual timeline of when you've worked each other, showing band, mode, and date for each contact
 
 ### Removing Friends
 
@@ -98,10 +112,22 @@ Swipe left on a friend in the Friends list and tap **Delete**, or use the Edit b
 
 ## Friend Suggestions
 
-Carrier Wave suggests friends based on shared contacts:
+Carrier Wave suggests friends using a multi-factor algorithm:
 
-- {{< term "callsign" >}}s with 3+ QSOs in your log who are Carrier Wave users appear as suggestions
-- Suggestions appear in a dedicated section of the Friends list
+### Suggestion Algorithm
+
+Friends are suggested based on:
+
+- **Shared QSOs** - Callsigns with 3+ QSOs in your log who are also Carrier Wave users (primary signal)
+- **Club overlap** - Other members of clubs you belong to
+- **Frequency of contact** - Stations you work regularly are ranked higher
+- **Recency** - Recent contacts are weighted more heavily than older ones
+- **Mutual friends** - Users who are friends with your existing friends
+
+### Managing Suggestions
+
+Suggestions appear in a dedicated section of the Friends list:
+
 - **Add** sends a friend request
 - **Dismiss** hides the suggestion permanently
 
@@ -126,6 +152,25 @@ The club detail view shows:
 
 - Full member list with {{< term "callsign" >}}s
 - Club description (if available)
+
+### Club Member Locations on Map
+
+The club detail view includes a map showing the locations of all club members:
+
+- **Member pins** placed at each member's grid square
+- **Your location** highlighted distinctly
+- **Distance** from you to each member
+- **Tap a pin** to see the member's callsign and recent activity
+
+### Club Statistics Dashboard
+
+Club-level statistics provide aggregate data about your club's activity:
+
+- **Total QSOs** across all members (this month/year)
+- **Active members** who logged QSOs recently
+- **Top operators** leaderboard by QSO count
+- **Band distribution** showing the club's collective operating patterns
+- **Challenge participation** showing how many members are in active challenges
 
 ### Membership
 
@@ -279,7 +324,7 @@ Community features are provided by activity servers. The official server is `htt
 
 To add a community-run server:
 
-1. Go to **Settings** → **Activities**
+1. Go to **Settings** -> **Activities**
 2. Scroll to **Activity Servers**
 3. Tap **Add Server**
 4. Enter the server URL and display name

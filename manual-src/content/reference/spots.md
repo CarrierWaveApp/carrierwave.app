@@ -1,11 +1,11 @@
 ---
 title: "Spot Monitoring"
-description: "RBN spots, POTA spots, P2P opportunities, and propagation data"
+description: "RBN spots, POTA spots, SOTA spots, WWFF spots, P2P opportunities, and propagation data"
 weight: 8
 showToc: true
 ---
 
-The Spot Monitoring system helps you find stations to work, assess propagation, and monitor current band conditions through integration with the {{< term "RBN" >}}, {{< term "POTA" >}} spotting network, and solar/weather data sources.
+The Spot Monitoring system helps you find stations to work, assess propagation, and monitor current band conditions through integration with the {{< term "RBN" >}}, {{< term "POTA" >}} spotting network, SOTA spots, WWFF spots, and solar/weather data sources.
 
 ## Accessing Spots
 
@@ -65,15 +65,42 @@ Active {{< term "POTA" >}} park activators reported by hunters. Each spot includ
 
 Use the `POTA` command to open the dedicated POTA spots panel with band and mode filtering.
 
+### SOTA Spots
+
+{{< term "SOTA" >}} (Summits on the Air) spots show activators operating from mountain summits:
+
+- **Callsign** - Summit activator's call
+- **Summit reference** - e.g., W7W/KG-001
+- **Summit name** - Full summit name
+- **Frequency and mode**
+- **Points** - Summit point value (1-10 based on altitude)
+- **Altitude** - Summit elevation
+
+**Data source:** SOTAwatch API
+
+SOTA spots integrate into the merged spot list alongside POTA and RBN data. The summit reference appears as a badge on the spot row.
+
+### WWFF Spots
+
+{{< term "WWFF" >}} (World Wide Flora & Fauna) spots show activators operating from nature reserves:
+
+- **Callsign** - Activator's call
+- **WWFF reference** - e.g., KFF-1234
+- **Reserve name** - Full reserve name
+- **Frequency and mode**
+- **Progress** - QSO count toward the 44-QSO activation requirement (if reported)
+
+**Data source:** WWFF spotting network
+
 ### Merged Spots
 
-The main spot list merges {{< term "POTA" >}} and {{< term "RBN" >}} data into a unified view sorted by band:
+The main spot list merges {{< term "POTA" >}}, {{< term "SOTA" >}}, {{< term "WWFF" >}}, and {{< term "RBN" >}} data into a unified view sorted by band:
 
-- **Human spots first** - POTA spots (manually posted by hunters) appear before RBN spots
-- **Deduplication** - When the same callsign appears on the same band in both POTA and RBN, spots are combined with POTA as the preferred source
+- **Human spots first** - POTA/SOTA/WWFF spots (manually posted by hunters) appear before RBN spots
+- **Deduplication** - When the same callsign appears on the same band in multiple sources, spots are combined with the human-posted source as preferred
 - **Band grouping** - Spots organized by band for easy scanning
 
-This merged view gives you both human-confirmed activity (POTA) and automated detection (RBN) in one place.
+This merged view gives you human-confirmed activity alongside automated detection (RBN) in one place.
 
 ### Park-to-Park (P2P)
 
@@ -90,6 +117,25 @@ Each P2P entry displays:
 - **Age** - Time since spot posted
 
 **Tap a P2P spot** to auto-fill the Logger with callsign, frequency, and park-to-park notes.
+
+## Spot Contact Validator
+
+The spot contact validator provides near-miss alerts when you log a QSO that closely matches (but doesn't exactly match) an active spot:
+
+- **Frequency mismatch** - You logged a QSO near a spotted frequency but not exactly on it
+- **Callsign similarity** - You logged a callsign similar to a spotted station (possible typo)
+- **Time proximity** - A spot appeared shortly after you logged a QSO on the same band
+
+When a near-miss is detected, a subtle alert appears suggesting you verify the contact details. This helps catch logging errors before they're uploaded to services.
+
+## Spot Comments Display
+
+Spot comments from hunters are displayed inline on spot rows:
+
+- **Latest comment** visible directly on the spot row
+- **Comment count badge** showing total comments
+- **Tap to expand** to see all comments in chronological order
+- **RBN comments** (automated) are collapsed separately from human comments
 
 ## Spot Visual Indicators
 
@@ -113,6 +159,10 @@ Spots may display badges indicating special conditions:
 
 These indicators help you avoid duplicate contacts and identify new {{< term "multiplier" >}} opportunities.
 
+### Worked-Before Cache
+
+Carrier Wave maintains an in-memory cache of recently worked callsigns to provide instant DUPE/TODAY/PREV badge rendering without database queries. The cache is rebuilt when the app launches and updated as you log QSOs.
+
 ## Filtering
 
 The spot filtering system lets you narrow results by multiple criteria:
@@ -120,6 +170,8 @@ The spot filtering system lets you narrow results by multiple criteria:
 ### Source Filter
 
 - **POTA** - Show only POTA spots
+- **SOTA** - Show only SOTA spots
+- **WWFF** - Show only WWFF spots
 - **RBN** - Show only RBN spots
 - **All** - Merged view (default)
 
@@ -153,6 +205,14 @@ Set maximum spot age from 5 to 30 minutes. Default is 12 minutes or less. Older 
 - Helps assess short-skip propagation and regional activity
 - Distance calculated from your {{< term "grid square" >}} (set in Settings)
 
+### Region-Based Aggregation
+
+Spots can be aggregated by geographic region to reduce clutter on busy bands:
+
+- **Region grouping** collapses multiple RBN spots from the same geographic area into a single row
+- **Expand** to see individual spots within a region
+- **Region labels** (NE, SE, MW, SW, NW for US; EU, AS, OC, AF, SA for international)
+
 ### Sort Order
 
 - **Recent** - Newest spots first (default)
@@ -176,6 +236,17 @@ A mini-map at the top of the spot panel shows:
 - **Geographic context** - Your location and spotted station location
 
 Spotter positions are resolved via HamDB {{< term "grid square" >}} lookups.
+
+## P2P Discovery via RBN
+
+Beyond the `P2P` command, Carrier Wave passively discovers park-to-park opportunities using RBN data:
+
+- **Background scanning** of RBN spots for callsigns matching active POTA activators
+- **Cross-reference** with POTA spot data to confirm park-to-park eligibility
+- **Toast notification** when a P2P opportunity is detected on your current band
+- **Tap the toast** to auto-fill the Logger with the P2P contact details
+
+This passive discovery ensures you don't miss P2P opportunities even when you're not actively checking the spot panel.
 
 ## Background Spot Monitoring
 
@@ -203,15 +274,15 @@ When spots are detected in the background, a compact banner appears showing:
 
 The recorded spots use the same aggregation as the live Logger spot view:
 
-- **Human spots first** — POTA spots appear before RBN spots
-- **Deduplication** — Same callsign + band merged, with POTA as the preferred source
-- **Band grouping** — Spots organized by band
-- **RBN region collapsing** — Consecutive RBN spots grouped by region
-- **Age color coding and badges** — SELF, DUPE, TODAY, PREV indicators preserved from capture time
+- **Human spots first** -- POTA spots appear before RBN spots
+- **Deduplication** -- Same callsign + band merged, with POTA as the preferred source
+- **Band grouping** -- Spots organized by band
+- **RBN region collapsing** -- Consecutive RBN spots grouped by region
+- **Age color coding and badges** -- SELF, DUPE, TODAY, PREV indicators preserved from capture time
 
-Tap the section header to expand or collapse the list. This provides a historical record of propagation during your activation — review which receivers heard you, on which bands, and at what signal strength.
+Tap the section header to expand or collapse the list. This provides a historical record of propagation during your activation -- review which receivers heard you, on which bands, and at what signal strength.
 
-See [POTA Activation Detail — Recorded Spots](/reference/pota/#recorded-spots) for full details.
+See [POTA Activation Detail -- Recorded Spots](/reference/pota/#recorded-spots) for full details.
 
 ## Solar & Weather Conditions
 
@@ -247,7 +318,7 @@ The spot system monitors nearby frequency activity from {{< term "RBN" >}} data:
 
 ### QRM Assessment
 
-- Detects activity within ±2kHz of your frequency
+- Detects activity within +/-2kHz of your frequency
 - Shows how busy the frequency is
 - Helps decide if it's worth calling on a crowded frequency
 
@@ -264,6 +335,8 @@ A unified warning banner appears when:
 |------|--------|
 | RBN spots | Vail ReRBN API |
 | POTA spots | POTA API |
+| SOTA spots | SOTAwatch API |
+| WWFF spots | WWFF spotting network |
 | Solar data | NOAA / HamQSL |
 | Spotter locations | HamDB.org |
 
@@ -271,5 +344,7 @@ A unified warning banner appears when:
 
 - [Logger](/reference/logger/) - Log contacts from spot data
 - [POTA Activations](/reference/pota/) - POTA-specific activation features
+- [Activity Programs](/reference/activations/) - SOTA, WWFF, and other programs
+- [Smart Spot Needs](/reference/smart-needs/) - Need-based spot matching and alerts
 - [Activity Log](/reference/activity-log/) - Review worked stations and hunter spots
 - [WebSDR Integration](/reference/websdr/) - Remote receiver integration for propagation assessment

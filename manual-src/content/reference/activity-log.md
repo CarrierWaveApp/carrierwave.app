@@ -64,6 +64,14 @@ Before logging {{< term "QSO" >}}s, pick a station profile. This sets the equipm
 
 Profiles are stored in UserDefaults and persist across app launches.
 
+### Station Profile Management
+
+Station profiles can be managed from both the Activity Log settings and Settings -> Activity Log -> Station Profiles. Improvements include:
+
+- **Duplicate profile** - Copy an existing profile and modify it for a new setup
+- **Default profile** - Designate one profile as the default for new days
+- **Profile switching** - Quick-switch between profiles from the Activity Log header
+
 ## Quick Entry
 
 The Activity Log's quick entry field supports intelligent parsing of contact details.
@@ -200,7 +208,7 @@ Select one or more amateur bands:
 
 ### Age Filter
 
-Show spots heard within the last N minutes. Configurable range: **5-30 minutes** (default: ≤12 minutes).
+Show spots heard within the last N minutes. Configurable range: **5-30 minutes** (default: 12 minutes or less).
 
 Older spots are often no longer active.
 
@@ -242,7 +250,7 @@ On first use, spot filtering defaults to:
 - **Source:** {{< term "POTA" >}}
 - **Band:** 20m
 - **Mode:** CW
-- **Age:** ≤12 minutes
+- **Age:** 12 minutes or less
 - **Proximity:** Heard Nearby (enabled)
 - **Sort:** Recent
 - **Hide Already Worked:** Enabled
@@ -262,6 +270,14 @@ Each band (20m, 40m, etc.) gets a row. Colored segments indicate periods when yo
 ### Color Coding
 
 Each band uses a distinct color for quick visual reference.
+
+### Band Timeline Visualization
+
+The band timeline is also available in a standalone view with enhanced features:
+
+- **Zoomable** - Pinch to zoom into specific time ranges
+- **Tap segments** to see QSO details for that time block
+- **Band legend** with toggle controls to show/hide specific bands
 
 ### Use Cases
 
@@ -328,7 +344,7 @@ The Activity Log monitors your {{< term "GPS" >}} location and detects when your
 When the app detects a grid square change, a prompt sheet appears:
 
 > **Location changed**
-> FN42 → FN31 (47 miles)
+> FN42 -> FN31 (47 miles)
 
 Options:
 

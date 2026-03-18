@@ -1,97 +1,67 @@
 ---
 title: "Setting Up Carrier Wave"
-description: "Configure your profile and connect services"
+description: "Configure your profile, connect services, and set up equipment"
 weight: 4
 ---
 
 Let's get Carrier Wave ready for logging.
 
+## The Onboarding Tour
+
+On first launch, an interactive walkthrough introduces the main tabs and helps set up your profile. You can revisit this tour anytime from Settings.
+
 ## Your Profile
 
-On first launch, Carrier Wave walks you through onboarding. Enter your callsign and the app looks up your profile from HamDB.org, filling in your name, QTH, grid square, and license class automatically.
+During onboarding (or in **Settings**), configure your station:
 
-You can also set up your profile manually in **Settings** (the gear icon):
+**Callsign** — Your primary callsign, logged as "your" call for every {{< term "QSO" >}}. The app looks up your profile from HamDB.org and fills in name, QTH, grid square, and license class. Add previous or alternate calls as **Callsign Aliases**.
 
-### Callsign
+**Location (QTH)** — Your city or general location.
 
-Enter your primary callsign. This is the callsign that will be logged as "your" call for every QSO.
+**Grid Square** — A {{< term "Grid Square" >}} location code (e.g., FN31 for Boston, CM87 for San Francisco). Auto-calculated if you grant location permission.
 
-If you have previous callsigns or operate under different calls (club calls, special event calls), you can add those as **Callsign Aliases** in Settings.
+**License Class** — Technician, General, or Extra. Carrier Wave uses this for band plan validation — it warns if you log outside your privileges.
 
-### Location (QTH)
+## Equipment
 
-Enter your city or general location. This helps when looking up your info from other services.
+In Settings, add your gear — radios, antennas, keys, and microphones. When you start a session, you pick which equipment you're using, and it's saved with every contact.
 
-### Grid Square
+{{< callout "tip" "Start Simple" >}}
+You don't need to add equipment right away. The only thing you need to start logging is your callsign.
+{{< /callout >}}
 
-Your {{< term "Grid Square" >}} is a location code based on the Maidenhead Locator System. If you granted location permission, Carrier Wave calculates this automatically.
+## Activity Programs
 
-Example: FN31 is the Boston area, CM87 is San Francisco.
+Carrier Wave has built-in support for several activity programs:
 
-### License Class
+- **POTA** (Parks on the Air) — Activate parks; make 10+ contacts to earn activator credit. You can also "hunt" activators from home. Hugely popular with new hams.
+- **SOTA** (Summits on the Air) — Activate mountain summits and hilltops.
+- **WWFF** (Worldwide Flora & Fauna) — International nature-based activations.
+- **AoA** (Airports on the Air) — Activate airports.
 
-Select your license class (Technician, General, or Amateur Extra in the US). You can also tap the search icon to look up your license class from HamDB.org automatically. This helps with band plan validation — Carrier Wave can warn you if you try to log a contact on a frequency outside your privileges.
+You don't need to join any of these to use Carrier Wave, but they give you goals to work toward.
 
 ## Connecting Services
 
-Scroll down to **Services** in Settings. Tap each service you want to connect:
+In **Settings → Services**, tap each service to connect:
 
-### QRZ.com
+- **QRZ.com** — Enter username and password. Credentials stored in iOS Keychain. A QRZ XML subscription is required for lookups.
+- **POTA** — Tap "Sign in with POTA" and complete the web sign-in.
+- **Ham2K LoFi** — Enter your email, then tap the device link sent to your inbox.
+- **LoTW** — Enter username and password. Downloads confirmations only; use ARRL's TQSL to upload.
+- **Club Log** — Enter email, app password, callsign, and API key.
+- **HAMRS** — Sign in with HAMRS credentials.
+- **eQSL** — Enter username and password.
 
-1. Tap **QRZ.com**
-2. Enter your QRZ username and password
-3. Tap **Sign In**
+**Start with one.** QRZ.com handles callsign lookups and cloud backup — that's enough to begin. Add others as you need them.
 
-Your credentials are stored securely in the iOS Keychain, not in the app's database. A QRZ XML Logbook Data subscription is required for callsign lookups.
+## Connecting Your Radio
 
-### POTA
-
-1. Tap **POTA**
-2. Tap **Sign in with POTA**
-3. Complete the OAuth flow in the web view
-4. Return to the app
-
-### Ham2K LoFi
-
-1. Tap **Ham2K LoFi**
-2. Enter your email address
-3. Check your email for a device link
-4. Tap the link to connect this device
-
-### LoTW
-
-1. Tap **LoTW**
-2. Enter your LoTW username and password
-3. Tap **Sign In**
-
-Note: Carrier Wave downloads confirmations from LoTW but doesn't upload. Use ARRL's TQSL software to upload.
-
-### Club Log
-
-1. Tap **Club Log**
-2. Enter your email, app password, callsign, and API key
-3. Tap **Sign In**
-
-Club Log provides bidirectional sync — your QSOs upload automatically and new data downloads during sync.
+If your radio supports Bluetooth, **BLE Radio Control** lets the app read frequency and mode automatically. Check Settings for the Bluetooth option.
 
 ## Customize Your Tabs
 
-In **Settings → Navigation**, you can show, hide, and reorder tabs. By default, Map and Activity are hidden but accessible from the More menu. On iPad, all tabs appear in the sidebar.
-
-## What Syncs Where?
-
-| Service | Uploads | Downloads |
-|---------|---------|-----------|
-| QRZ.com | ✓ QSOs | ✓ QSOs, Callsign info |
-| POTA | ✓ Activations | ✗ |
-| LoFi | ✓ QSOs | ✓ QSOs |
-| LoTW | ✗ | ✓ Confirmations |
-| Club Log | ✓ QSOs | ✓ QSOs |
-| HAMRS | ✗ | ✓ QSOs |
-
-## Start with One
-
-Don't feel pressure to connect everything at once. Start with QRZ.com — it handles callsign lookups and gives you a cloud backup. Add other services as you need them.
+In Settings, show, hide, and reorder navigation tabs. Features like Map and Events can be added to your tab bar.
 
 ## What's Next?
 

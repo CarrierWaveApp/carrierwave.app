@@ -14,11 +14,40 @@ iCloud Sync keeps your Carrier Wave data synchronized across all your Apple devi
 - **QSO database** - All your logged contacts
 - **App settings** - Preferences and configuration
 - **Callsign notes** - Custom notes files
+- **WebSDR favorites** - Saved receiver list
+- **Equipment profiles** - Station configurations
+- **Community data** - Friends, challenge progress
 
 ### Not Synced
 
 - **Service credentials** - Stored in device Keychain (you'll need to sign in on each device)
 - **Cached data** - Callsign lookups, temporary files
+- **WebSDR recordings** - Audio files remain on the recording device (too large for CloudKit)
+- **Session photos** - Stored locally (available via iCloud Drive backup mirror if enabled)
+
+## CKSyncEngine
+
+Carrier Wave uses Apple's CKSyncEngine framework for iCloud synchronization. This provides:
+
+- **Automatic conflict detection** at the record level
+- **Efficient delta sync** - only changed records are transferred
+- **Background sync** - updates happen without user intervention
+- **Offline queue** - changes accumulate while offline and sync when connectivity returns
+
+### Synced Entities
+
+The following data model entities are synced via CKSyncEngine:
+
+| Entity | Sync Behavior |
+|--------|---------------|
+| **QSO records** | Full bidirectional sync with field-level merge |
+| **Sessions** | Metadata synced; QSOs linked by session ID |
+| **Equipment profiles** | Full sync |
+| **App preferences** | Last-write-wins for scalar values |
+| **Callsign notes sources** | URL and configuration synced; content fetched independently per device |
+| **WebSDR favorites** | Full sync |
+| **Community friends** | Friend list synced; server data re-fetched per device |
+| **Challenge participation** | Enrollment synced; progress computed locally |
 
 ## Enabling iCloud Sync
 
@@ -40,6 +69,46 @@ Carrier Wave uses CloudKit to sync data:
 
 Sync happens automatically in the background.
 
+## Conflict Resolution Strategies
+
+When the same record is modified on multiple devices, Carrier Wave applies different strategies depending on the data type:
+
+### Field-Level Merge (QSOs)
+
+For QSO records, conflicts are resolved at the field level rather than the whole-record level:
+
+- Each field's modification timestamp is tracked independently
+- The most recently modified value for each field wins
+- This prevents a frequency correction on one device from overwriting a notes edit on another device
+
+### Union Merge (Collections)
+
+For collection-type data (park references, equipment lists, callsign notes sources):
+
+- Items from both versions are combined (union)
+- Duplicates are detected and removed
+- No data is lost from either device
+
+### Last-Write-Wins (LWW)
+
+For scalar settings and preferences:
+
+- The most recent modification timestamp determines the winner
+- The losing value is discarded
+- Appropriate for settings where only one value can be correct (theme, default tab, etc.)
+
+## iCloud Drive Backup Mirroring
+
+In addition to CKSyncEngine sync, Carrier Wave can mirror your data to iCloud Drive as a backup:
+
+- **ADIF export** of your complete QSO log written periodically to iCloud Drive
+- **Settings snapshot** in JSON format
+- **Accessible from Finder/Files** for manual recovery or transfer to other software
+
+Enable this in Settings -> Backup & Restore -> iCloud Drive Backup Mirroring.
+
+This provides an additional safety net beyond CloudKit sync, as iCloud Drive files are visible and downloadable from any device.
+
 ## Multi-Device Scenarios
 
 ### Logging on iPhone, Viewing on iPad
@@ -53,13 +122,6 @@ Sync happens automatically in the background.
 If you log on two devices simultaneously:
 - Both QSOs are kept (no data loss)
 - Duplicates may occur if logging the same contact on both
-
-## Conflict Resolution
-
-When the same record is modified on multiple devices:
-
-- **QSOs:** Both versions kept if different; merged if compatible
-- **Settings:** Most recent change wins
 
 ## Troubleshooting
 

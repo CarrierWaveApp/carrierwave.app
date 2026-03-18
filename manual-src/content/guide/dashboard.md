@@ -1,65 +1,92 @@
 ---
 title: "Understanding Your Dashboard"
-description: "Making sense of your statistics and sync status"
+description: "Making sense of your statistics, social features, and sync status"
 weight: 6
 ---
 
-The Dashboard gives you an at-a-glance view of your logging activity and service status.
+The Dashboard is your home base — an at-a-glance view of your activity, what's happening on the bands, and how your services are doing.
 
 ## Activity Grid
 
-At the top of the Dashboard, a GitHub-style activity grid shows your logging history over the past 26-52 weeks. Green cells represent activation days, blue cells represent activity log (hunter) days, and cells with a diagonal split mean you did both.
+A GitHub-style grid at the top shows your recent logging history. Each cell is one day: green for activations, blue for hunting/casual contacts, split for both. Tap any cell to see that day's contacts. Watching the grid fill up is surprisingly motivating.
 
-Tap any cell to see that day's details.
+## Your Statistics
 
-## Activity Statistics
+Below the grid, your numbers break down by:
 
-Below the grid, the statistics display shows your QSO counts across several dimensions:
+- **Band** — Contacts per band (20m, 40m, 2m, etc.)
+- **Mode** — SSB, CW, FT8, FM, and others
+- **Country** — Unique {{< term "DXCC" >}} entities worked (tracking toward 100 for the DXCC award)
+- **Grid Squares, States, Parks** — Progress toward various awards
+- **QRZ and LoTW Confirmations** — Contacts confirmed by each service
 
-### By Band
-How many contacts on each band (20m, 40m, 2m, etc.). Tap any band to drill down and see those specific contacts.
+Tap any statistic to drill down and see the underlying contacts.
 
-### By Mode
-Contacts broken down by mode (SSB, CW, FT8, FM). See where you spend most of your time.
+## Equipment Usage
 
-### By Country
-Your DXCC entity count. Working toward 100 countries for the {{< term "DXCC" >}} award? Track your progress here.
-
-### Other Stats
-- **Grid Squares** — Unique grids worked
-- **Parks** — POTA parks worked or activated
-- **States** — Progress toward WAS
-- **QRZ QSLs** — Confirmed contacts on QRZ
-- **LoTW QSLs** — Confirmed contacts on LoTW
+A card showing how many contacts you've made with each radio, antenna, and other gear — great for comparing setups.
 
 ## Streaks
 
-The configurable metrics card shows your current streaks — consecutive days with specific types of activity. Streak types include On-Air, Activation, Hunter, CW, Phone, and Digital. Tap to see detailed breakdowns with mode and band splits, date ranges, and all-time best comparisons.
+Consecutive-day streaks for On-Air, Activation, Hunter, CW, Phone, and Digital activity. See your current streak and all-time best.
 
-## Service Status
+## Friends on Air
 
-The Services section shows sync status for each connected service:
+When friends you've added are spotted on the bands, they appear here. See a friend? Tune to their frequency and say hello.
 
-| Indicator | Meaning |
-|-----------|---------|
-| **Green dot** | Synced and current |
-| **Yellow dot** | Sync in progress |
-| **Red dot** | Error (tap for details) |
-| **Gray dot** | Not configured |
+## Band Openings
 
-Tap any service to see details about the last sync, pending uploads, sync reports with a visual funnel, or force a re-download.
+Which bands are carrying signals well right now. If 20 meters is lit up with activity, that's where you want to be.
+
+## DXpeditions
+
+Active and upcoming DXpeditions — organized trips to rare locations. Plan ahead so you can work them and add new countries to your log.
+
+## POTA Awards Progress
+
+Track how close you are to earning POTA activator or hunter awards.
+
+## Smart Spot Needs
+
+Carrier Wave watches the spots (real-time reports of who's on the air) and highlights stations that would give you a new country, state, or park. It takes the guesswork out of who to call next.
 
 ## Conditions
 
-If you have solar polling enabled, a conditions card shows the latest K-index, SFI, and A-index values with sparkline charts. Tap to see a full conditions history with timeline charts and by-location comparisons.
+Solar data — K-index, SFI, A-index — with sparkline trends. Higher SFI generally means better long-distance conditions. Tap for full history.
+
+## Service Status
+
+Connected services show colored status dots:
+
+| Indicator | Meaning |
+|-----------|---------|
+| **Green** | Synced and current |
+| **Yellow** | Sync in progress |
+| **Red** | Error — tap for details |
+| **Gray** | Not configured |
+
+## Beyond the Dashboard
+
+As you explore Carrier Wave, you'll find more:
+
+- **Map Tab** — Contacts on a world map, plus parks and summits
+- **Events** — Local ham radio events, club meetings, contests
+- **Challenges** — Competitive events to motivate trying new things
+- **Band Plan Chart** — Visual frequency allocation reference for your license class
+- **Session Timeline** — Replay an activation on a map
+- **Widgets** — Home screen widgets for solar conditions, spots, and stats
+- **watchOS App** — Companion Apple Watch app for the field
+- **CW Transcription** — Decode Morse code in real time
+- **WebSDR** — Listen to remote radios through the app
 
 ## What's Next?
 
-You now understand the basics of Carrier Wave! For complete documentation of every feature, explore the [Reference Manual](/reference/).
+You now understand the basics of Carrier Wave! For complete documentation, explore the [Reference Manual](/reference/).
 
-Some popular next steps:
+Popular next steps:
 - [Search your logs](/reference/logs-search/) with a powerful query language
 - [Upload POTA activations](/reference/pota/) or try rove mode
 - [Set up the Activity Log](/reference/activity-log/) for daily hunter tracking
 - [Explore the Map](/reference/map/) to see your contacts worldwide
 - [Add Widgets](/reference/widgets/) to your home screen
+- [Browse the Glossary](/glossary/) when you hit an unfamiliar term

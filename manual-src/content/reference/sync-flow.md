@@ -1,7 +1,7 @@
 ---
 title: "Service Sync Flow"
 description: "When and how QSOs sync to cloud services"
-weight: 6
+weight: 7
 showToc: true
 ---
 
@@ -22,12 +22,13 @@ Sync operations batch multiple QSOs for efficiency and respect service-specific 
 
 | Service | Upload | Download |
 |---------|--------|----------|
-| QRZ.com | ✓ QSOs | ✓ QSOs, Callsign info |
-| POTA | ✓ Activations | ✗ |
-| Ham2K LoFi | ✓ QSOs | ✓ QSOs |
-| LoTW | ✗ | ✓ Confirmations |
-| Club Log | ✓ QSOs | ✓ QSOs |
-| HAMRS | ✗ | ✓ QSOs |
+| QRZ.com | Yes - QSOs | Yes - QSOs, Callsign info |
+| POTA | Yes - Activations | No |
+| Ham2K LoFi | Yes - QSOs | Yes - QSOs |
+| LoTW | No | Yes - Confirmations |
+| Club Log | Yes - QSOs | Yes - QSOs |
+| eQSL | Yes - QSOs | Yes - Confirmations |
+| HAMRS | No | Yes - QSOs |
 
 ## Service-Specific Behavior
 
@@ -44,7 +45,7 @@ Sync operations batch multiple QSOs for efficiency and respect service-specific 
 - **Format**: ADIF files, one per park per UTC date
 - **Upload timing**: After activation completion
 - **Two-fer support**: QSOs automatically split to each park when activating multiple parks simultaneously
-- **Upload status tracking**: Per-park progression through pending → submitted → accepted states
+- **Upload status tracking**: Per-park progression through pending -> submitted -> accepted states
 - **Job reconciliation**: Automatically reconciles uploads against POTA job log during sync
 - **Orphan repair**: Resets submitted QSOs back to pending if POTA has dropped the upload
 - **QSO-level gap repair**: Compares local vs POTA remote data and flags missing QSOs for re-upload
@@ -74,7 +75,17 @@ Sync operations batch multiple QSOs for efficiency and respect service-specific 
 - **Upload**: Batch upload via putlogs.php endpoint
 - **Download**: Incremental date-based download via getadif.php endpoint
 - **Real-time upload**: Supports single-QSO immediate upload
+- **Incremental timestamps**: Tracks last-synced timestamp per direction to minimize redundant transfers
 - **Query language**: Filter QSOs from Club Log using `source:clublog`
+
+### eQSL
+
+- **Format**: ADIF upload, confirmation download via API
+- **Direction**: Bidirectional (upload QSOs, download confirmations)
+- **Authentication**: Username and password
+- **Upload timing**: Near real-time after QSO save (batched)
+- **Confirmation download**: Fetches eQSL confirmations and marks matching QSOs
+- **Query language**: Filter with `source:eqsl` or `confirmed:eqsl`
 
 ### HAMRS
 
@@ -85,7 +96,7 @@ Sync operations batch multiple QSOs for efficiency and respect service-specific 
 
 Each service generates structured sync reports showing:
 
-- **Visual funnel**: Fetched → Validated → Changes Applied → Uploaded
+- **Visual funnel**: Fetched -> Validated -> Changes Applied -> Uploaded
 - **Status badges**: Success, warning, error indicators
 - **Phase indicators**: Current sync operation stage
 - **Reconciliation details**: POTA job matching and gap repair results
@@ -99,8 +110,10 @@ Only QSOs matching your primary {{< term "callsign" >}} are uploaded to services
 
 - Import creates upload markers only for primary callsign QSOs
 - Sync fetch applies defense-in-depth filtering during download
-- Previous callsigns are excluded from upload queues
+- Previous callsigns (aliases) are excluded from upload queues
 - Prevents pollution of contest logs and online records with guest operator QSOs
+
+**Edge case:** If you change your primary callsign in settings, QSOs logged under the old callsign remain in your local database but are not re-uploaded. Use the Force Re-Download feature to reconcile if needed.
 
 ## Metadata Mode Filtering
 
@@ -109,6 +122,27 @@ Only QSOs matching your primary {{< term "callsign" >}} are uploaded to services
 - Filtered at source during import and logging
 - Excluded from sync counts and statistics
 - Existing metadata QSOs with pending flags are auto-repaired during sync
+
+## Incremental Sync Timestamps
+
+Each service tracks incremental sync timestamps to avoid redundant data transfer:
+
+- **Last upload timestamp** - Only QSOs modified after this time are queued for upload
+- **Last download timestamp** - Only remote records newer than this time are fetched
+- **Per-service granularity** - Each service maintains its own independent timestamp
+
+These timestamps are stored in UserDefaults and reset when you trigger a Force Re-Download for a service.
+
+## Upload Error Telemetry
+
+Carrier Wave collects anonymized error telemetry for upload failures:
+
+- **Error category** (authentication, network, validation, server error)
+- **Service identifier** and endpoint
+- **Timestamp** and retry count
+- **No QSO content** is included in telemetry
+
+Telemetry helps identify service-wide issues (e.g., POTA API changes) and is reported in aggregate in the sync debug log. You can disable telemetry in Settings -> Advanced.
 
 ## Offline Operation
 
@@ -161,20 +195,21 @@ Different services use different strategies:
 - **QRZ**: Remote data is authoritative for downloads
 - **POTA**: Upload-only, no conflicts possible
 - **Club Log**: Incremental date-based sync, server authoritative for downloads
+- **eQSL**: Upload QSOs, download confirmations; no field-level conflicts
 
 ## Sync Status Indicators
 
 Service cards on the Dashboard show:
 
-- **✓ Green**: All synced
-- **↻ Yellow**: Sync in progress
-- **! Red**: Sync error
-- **○ Gray**: Service not configured
+- **Green check**: All synced
+- **Yellow spinner**: Sync in progress
+- **Red exclamation**: Sync error
+- **Gray circle**: Service not configured
 - **n Pending**: Count of QSOs awaiting upload
 
 ## Monitoring Sync
 
-Enable detailed sync logging at **Settings → Advanced → Sync Debugging**:
+Enable detailed sync logging at **Settings -> Advanced -> Sync Debugging**:
 
 - Request and response logs with full payloads
 - Error details with stack traces

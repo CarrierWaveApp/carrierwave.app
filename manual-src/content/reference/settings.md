@@ -1,7 +1,7 @@
 ---
 title: "Settings & Services"
 description: "Configuration, service authentication, and preferences"
-weight: 5
+weight: 7
 showToc: true
 ---
 
@@ -88,12 +88,60 @@ Carrier Wave integrates with multiple amateur radio services for callsign lookup
 - Incremental date-based download
 - Real-time single-{{< term "QSO" >}} upload
 
+### eQSL
+
+**Authentication:** Username and password.
+
+**Features:**
+- {{< term "QSO" >}} upload to eQSL
+- Confirmation download
+- Bidirectional sync with eQSL inbox
+
+**Behavior:** eQSL confirmations appear as a separate confirmation source in QSO detail views. Confirmed contacts show an eQSL badge alongside LoTW and QRZ confirmations.
+
 ### HAMRS
 
 **Authentication:** OAuth.
 
 **Features:**
 - Bidirectional {{< term "QSO" >}} sync
+
+## BLE Radio Control
+
+Configure Bluetooth Low Energy radio control for frequency and mode sync between your radio and Carrier Wave.
+
+### Device Scanning
+
+Tap **Scan for Radios** to discover nearby BLE-enabled radios and interfaces. Carrier Wave displays:
+
+- **Device name** and signal strength
+- **Connection status** (available, paired, connected)
+- **Protocol type** detected (if auto-detectable)
+
+### Protocol Selection
+
+Select the communication protocol matching your radio:
+
+| Protocol | Radios |
+|----------|--------|
+| **Icom CI-V** | Icom IC-705, IC-7300, IC-7610, and other CI-V radios |
+| **Kenwood/Elecraft** | Kenwood TS-890S, Elecraft KX2/KX3/K4 (text command protocol) |
+| **Yaesu CAT** | Yaesu FT-891, FT-991A, FTDX10 (CAT command set) |
+
+### CI-V Address Configuration
+
+For Icom radios, configure the CI-V address (default `0x94` for IC-705). Enter the hex address matching your radio's CI-V setting.
+
+### Connection Setup
+
+1. Enable Bluetooth on your iOS device
+2. Go to **Settings -> Radio Control**
+3. Tap **Scan for Radios**
+4. Select your radio or BLE interface
+5. Choose the correct protocol
+6. Carrier Wave connects and begins frequency/mode sync
+
+See [BLE Radio Control](/reference/radio-control/) for full details.
 
 ## iCloud Sync
 
@@ -139,11 +187,19 @@ Automatically suggest operating mode based on entered frequency.
 
 ### Keyboard Number Row Customization
 
-Configure which symbols appear in the number row of the custom keyboard.
+Configure which symbols appear in the number row of the custom keyboard. Drag to reorder, toggle individual keys on or off.
 
 ### Command Row Buttons
 
-Customize quick-access command buttons in the logger.
+Customize quick-access command buttons in the logger. Add, remove, and reorder buttons for your most-used commands.
+
+### Auto-Upload Settings
+
+Configure automatic upload behavior after ending sessions:
+
+- **Upload immediately** - Upload to all configured services right after session end
+- **Prompt first** - Show the upload sheet for review before uploading
+- **Manual only** - Never auto-upload; require explicit action
 
 ## POTA Settings
 
@@ -168,6 +224,17 @@ Include equipment details when generating activation brag sheets.
 ### Hourly Solar Conditions Polling
 
 Enable background polling for solar conditions ({{< term "SFI" >}}, {{< term "A-index" >}}, {{< term "K-index" >}}) every hour.
+
+## Smart Spot Needs Configuration
+
+Configure need categories for the [Smart Spot Needs](/reference/smart-needs/) system:
+
+- **Enable/disable individual need categories** (DXCC, WAS, POTA, WWFF, Challenge, Custom)
+- **Custom patterns** - Define your own matching rules
+- **Notification cooldown** - Set minimum time between alerts for the same need (default: 30 minutes)
+- **HamAlert export** - Generate a HamAlert trigger list from your needs configuration
+
+See [Smart Spot Needs](/reference/smart-needs/) for full details.
 
 ## Activity Log Settings
 
@@ -208,11 +275,12 @@ Show, hide, or reorder tabs. Available tabs:
 - Logger
 - Logs
 - CW
+- FT8
 - Map
 - Activity
 - Activity Log
 
-Hidden tabs remain accessible via the "More" menu.
+Hidden tabs remain accessible via the "More" menu. Drag handles allow reordering tabs to match your workflow.
 
 ### Default Tab
 
@@ -258,6 +326,25 @@ Configure which metrics appear on the Dashboard card (1-2 metrics).
 - Hunts per week/month/year
 - New {{< term "DXCC" >}} entities
 
+## Backup & Restore
+
+### iCloud Drive Backup Mirroring
+
+Enable automatic backup mirroring to iCloud Drive. When enabled, Carrier Wave periodically writes a complete ADIF export and settings snapshot to your iCloud Drive folder. This provides an additional layer of data protection beyond CKSyncEngine sync.
+
+### Manual Backup
+
+Generate an on-demand backup package containing:
+
+- Full ADIF export of all QSOs
+- Settings configuration (JSON)
+- Equipment profiles
+- Callsign notes sources
+
+### Restore from Backup
+
+Import a previous backup to restore your data. Carrier Wave merges imported QSOs with existing data, using duplicate detection to avoid creating duplicates.
+
 ## WebSDR
 
 Manage WebSDR recordings and favorites.
@@ -292,7 +379,7 @@ View background upload job status for {{< term "POTA" >}} activations.
 
 ### Force Re-Download Per Service
 
-Trigger a full re-download from QRZ, LoTW, Club Log, or Ham2K LoFi.
+Trigger a full re-download from QRZ, LoTW, Club Log, eQSL, or Ham2K LoFi.
 
 ### Bypass Maintenance Window
 
@@ -347,6 +434,8 @@ View credits for third-party libraries used in Carrier Wave.
 
 - [Service Sync Flow](/reference/sync-flow/) - How and when syncing works
 - [iCloud Sync](/reference/icloud/) - Cross-device synchronization
+- [BLE Radio Control](/reference/radio-control/) - Radio connection details
 - [Logger](/reference/logger/) - QSO entry and session management
 - [POTA Activations](/reference/pota/) - Park activation features
+- [Smart Spot Needs](/reference/smart-needs/) - Need-based spot matching
 - [Troubleshooting](/reference/troubleshooting/) - Common issues and solutions

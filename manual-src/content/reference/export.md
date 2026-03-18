@@ -1,6 +1,6 @@
 ---
 title: "Export & Sharing"
-description: "ADIF export, brag sheets, and share cards"
+description: "ADIF export, Cabrillo export, share cards, and recording clips"
 weight: 15
 showToc: true
 ---
@@ -10,9 +10,12 @@ showToc: true
 Carrier Wave provides multiple ways to export and share your logging data:
 
 - **{{< term "ADIF" >}} file export** for importing into other logging software or online logbooks
+- **Cabrillo export** for contest log submissions
 - **Activation brag sheets** for sharing POTA activations as attractive image cards
 - **Daily activity share cards** for sharing your day's operating summary
-- **Summary cards** for individual sessions and activations
+- **Session share cards** for individual sessions
+- **Recording clip export** with metadata
+- **Video export** for animated session replays
 
 All export and sharing features integrate with the iOS share sheet, allowing you to send data via AirDrop, Messages, email, or save to Files and Photos.
 
@@ -26,9 +29,9 @@ All export and sharing features integrate with the iOS share sheet, allowing you
 
 You can export ADIF files from:
 
-- **Activation detail view** — Tap the share button in the toolbar to export that activation's QSOs
-- **Sessions list** — Long-press or swipe on a session row to access the export option
-- **Logging session manager** — Export the current session's QSOs
+- **Activation detail view** -- Tap the share button in the toolbar to export that activation's QSOs
+- **Sessions list** -- Long-press or swipe on a session row to access the export option
+- **Logging session manager** -- Export the current session's QSOs
 
 When you export an ADIF file:
 
@@ -51,124 +54,55 @@ Each exported ADIF file includes:
 - Station information (operator callsign, grid square, power)
 - {{< term "POTA" >}} park references (for activations)
 - {{< term "SOTA" >}} summit references (when applicable)
+- {{< term "WWFF" >}} references (when applicable)
+- Equipment information (MY_RIG field)
 - Additional fields like comments and equipment notes
 
-## Activation Brag Sheets
+## Cabrillo Export
 
-### What are Brag Sheets?
+### What is Cabrillo?
 
-Brag sheets are shareable image cards that beautifully visualize your {{< term "POTA" >}} activations. They combine maps, statistics, and operating details into a single attractive image perfect for sharing on social media or with friends.
+Cabrillo is the standard format for submitting contest logs. Unlike ADIF, Cabrillo includes contest-specific exchange information and header fields required by contest sponsors.
 
-### Accessing Brag Sheets
+### Generating Cabrillo Files
 
-You can generate a brag sheet by:
+From a contest session's detail view:
 
-- **Swiping right** on any activation row in the {{< term "POTA" >}} activations list
-- **Tapping the share button** in the activation detail view toolbar
+1. Tap the **Export** button
+2. Select **Cabrillo (.cbr)**
+3. Review the generated header (callsign, category, contest name)
+4. Share or save the file
 
-### Brag Sheet Contents
+### Cabrillo Header Fields
 
-Each brag sheet includes:
+Carrier Wave populates the Cabrillo header from session and contest metadata:
 
-**Map Visualization**
-- World map showing QSO locations
-- Geodesic arcs connecting your location to each contact
-- Colored dots based on {{< term "RST" >}} signal reports:
-  - **Green** — Strong signals (S8-S9)
-  - **Yellow** — Medium signals (S5-S7)
-  - **Red** — Weak signals (S1-S4)
+- **CONTEST** - Contest identifier (from WA7BNM calendar)
+- **CALLSIGN** - Your operating callsign
+- **CATEGORY-OPERATOR** - Single-op, multi-op
+- **CATEGORY-BAND** - ALL or specific band
+- **CATEGORY-POWER** - QRP, LOW, HIGH
+- **CATEGORY-MODE** - CW, SSB, MIXED, etc.
+- **CLAIMED-SCORE** - Calculated from QSO data and contest scoring rules
 
-**Activation Details**
-- Park reference (e.g., K-1234) and full park name
-- Date of activation
-- Total QSO count and activation duration
-- Bands and modes used
-- Equipment badges (antenna, key, mic) when enabled
+Edit any header field before exporting if the auto-detected values need correction.
 
-**Operating Statistics**
-- **Distance stats** — Average and maximum contact distance
-- **Power output** — Transmitter power in watts
-- **Watts per mile** — Efficiency metric (power/max distance)
-- **Radio information** — Transceiver model and configuration
-- **QSOs per hour** — Operating rate
+See [Contest Support](/reference/contests/) for details on contest logging.
 
-**Timeline Visualization**
-- QSO timeline bar showing when contacts were made
-- Band-colored tick marks for each QSO
-- Gap indicators showing breaks in operating
+## Share Cards
 
-**Environmental Conditions**
-- Solar conditions ({{< term "SFI" >}}, A-index, K-index) when available
-- Weather conditions at activation time
+### Activation Share Cards
 
-**Branding**
-- Carrier Wave logo and name
-- Professional layout suitable for sharing
+Activation share cards (brag sheets) summarize a POTA activation as an attractive image. See [Brag Sheets & Share Cards](/reference/brag-sheets/) for full details on customization, presets, and statistical overlays.
 
-### Professional Statistician Mode
+### Activity Share Cards
 
-For operators who want deeper statistical analysis, enable **Professional Statistician Mode** in {{< term "POTA" >}} settings. This adds extended charts and statistics to both activation detail views and brag sheets.
-
-#### Additional Charts and Visualizations
-
-When Professional Statistician Mode is enabled, brag sheets include:
-
-**Band Distribution Chart**
-- Pie chart or bar graph showing QSO breakdown by band
-- Helps visualize which bands were most productive
-
-**QSO Rate Over Time**
-- Line graph showing contacts per hour throughout the activation
-- Identifies peak operating periods
-
-**Cumulative Distance CDF Chart**
-- Cumulative distribution function showing distance coverage
-- Demonstrates how quickly you reached various distance milestones
-
-**Cumulative Timing CDF Chart**
-- Shows how QSOs accumulated over time during the activation
-- Useful for analyzing operating efficiency
-
-**RST Statistics**
-- Statistics bucketed by R (readability), S (signal strength), and T (tone)
-- Separate analysis for each component of signal reports
-- Histograms showing distribution of each metric
-
-**Distance and Timing Box Plots**
-- Box-and-whisker plots showing statistical distribution
-- Median, quartiles, and outliers clearly visualized
-
-**Additional Metrics**
-- **Entity counts** — Number of unique {{< term "DXCC" >}} entities worked
-- **Peak rate badges** — "Best 15-min" highlighting your fastest operating period
-- **Band/mode distributions** — Detailed breakdowns of operating patterns
-- **Modes used** — List of all operating modes during the activation
-
-These extended statistics provide deep insights into your activation's performance and help identify patterns for improving future operations.
-
-### Equipment Badges
-
-By default, Carrier Wave includes equipment badges on brag sheets showing:
-
-- **Antenna** — The antenna(s) used during the activation
-- **Key/Paddle** — For {{< term "CW" >}} operations
-- **Microphone** — For voice operations
-- **Extra Equipment** — Additional gear like tuners, amplifiers, batteries
-
-You can control this behavior in {{< term "POTA" >}} settings with the **"Include Equipment on Brag Sheet"** toggle (enabled by default). Disabling this option creates cleaner brag sheets focused purely on operating statistics.
-
-## Daily Activity Share Cards
-
-### What are Activity Share Cards?
-
-Daily activity share cards provide a quick summary of your operating day, including:
+Daily activity share cards provide a quick summary of your operating day:
 
 - Total QSOs logged
 - Bands and modes used
 - Activations completed
 - Notable contacts or achievements
-
-### Creating Activity Share Cards
 
 From the Activity Log view:
 
@@ -177,7 +111,59 @@ From the Activity Log view:
 3. Carrier Wave generates a branded card with your day's statistics
 4. Use the iOS share sheet to send it via your preferred method
 
-Activity share cards use the same ShareCardContent template as other share features, maintaining consistent branding and layout.
+### Session Share Cards
+
+Generate a share card for any logging session (not just POTA activations):
+
+- Map with QSO locations and arcs
+- Session duration and QSO count
+- Band and mode breakdown
+- Equipment summary
+
+Access from the session detail view via the share button.
+
+### Recording Share Cards
+
+When sharing a WebSDR recording clip, Carrier Wave generates a companion card showing:
+
+- Recording duration and session details
+- QSO count during the recording
+- Frequency and mode information
+- Waveform thumbnail
+
+## Recording Clip Export
+
+Export audio clips from WebSDR recordings as standalone files.
+
+### Creating a Clip
+
+1. Open the recording playback interface
+2. Tap the **Share** button
+3. Adjust the **range handles** to select the desired time window (default: active QSO start/end)
+4. Tap **Export Clip**
+
+### M4A Export with Metadata
+
+Clips are exported as **M4A** files (AAC compressed audio) with embedded metadata:
+
+- **Title** - Callsign and date of the QSO (if applicable)
+- **Artist** - Your callsign
+- **Album** - Session name
+- **Date** - Recording date
+- **Comment** - Frequency, mode, and park reference
+- **Artwork** - Session share card thumbnail (if generated)
+
+This metadata ensures clips are properly labeled when imported into other apps or shared on social media.
+
+### Sharing Clips
+
+The clip opens the iOS share sheet. Share via:
+
+- AirDrop
+- Messages
+- Email
+- Save to Files
+- Save to Voice Memos
 
 ## Share Preview and Photos
 
@@ -199,6 +185,10 @@ The **Save to Photos** button provides one-tap saving to your device's photo lib
 - Archiving statistical summaries
 - Sharing later without regenerating the card
 
+## Video Export
+
+Carrier Wave can generate animated videos of your sessions. See [Video Export](/reference/video-export/) for full details on rendering modes, map styles, and export options.
+
 ## Tips for Effective Sharing
 
 ### Brag Sheet Best Practices
@@ -214,6 +204,12 @@ The **Save to Photos** button provides one-tap saving to your device's photo lib
 - **Use consistent filenames** when saving to Files for easy organization
 - **Verify import** after uploading to online logbooks to ensure all QSOs transferred correctly
 
+### Cabrillo Export Best Practices
+
+- **Review the header** before submitting to ensure contest category is correct
+- **Verify exchange fields** are properly populated for the specific contest
+- **Submit promptly** after the contest ends (most sponsors have submission deadlines)
+
 ### Social Media Sharing
 
 Carrier Wave's share cards are designed to look great on social media platforms:
@@ -225,7 +221,10 @@ Carrier Wave's share cards are designed to look great on social media platforms:
 
 ## See Also
 
-- [POTA (Parks on the Air)](/reference/pota/) — Learn about POTA activations and how they integrate with brag sheets
-- [Activity Log](/reference/activity-log/) — Understand how daily activity is tracked and shared
+- [POTA (Parks on the Air)](/reference/pota/) -- Learn about POTA activations and how they integrate with brag sheets
+- [Brag Sheets & Share Cards](/reference/brag-sheets/) -- Detailed customization options for share cards
+- [Video Export](/reference/video-export/) -- Animated session replay videos
+- [Contest Support](/reference/contests/) -- Contest logging and Cabrillo generation
+- [Activity Log](/reference/activity-log/) -- Understand how daily activity is tracked and shared
 - [Logs & Search](/reference/logs-search/) - Browse sessions and QSO history
-- [Settings](/reference/settings/) — Configure POTA settings including Professional Statistician Mode and equipment badges
+- [Settings](/reference/settings/) -- Configure POTA settings including Professional Statistician Mode and equipment badges

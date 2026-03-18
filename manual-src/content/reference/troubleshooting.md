@@ -1,7 +1,7 @@
 ---
 title: "Troubleshooting"
-description: "Common issues, sync logs, and bug reporting"
-weight: 12
+description: "Common issues, sync debugging, error telemetry, and data repair"
+weight: 20
 showToc: true
 ---
 
@@ -41,11 +41,120 @@ This section helps diagnose and resolve common issues with Carrier Wave.
 2. Manually delete duplicates if needed
 3. The most recent data usually wins
 
+## Sync Debugging Tools
+
+Carrier Wave provides several tools for diagnosing sync issues:
+
+### Sync Debug Log
+
+Enable detailed sync logging at **Settings -> Advanced -> Sync Debugging**:
+
+- **Request logs** - Full HTTP request and response payloads for each service
+- **Response parsing** - How each response was interpreted
+- **Error details** with stack traces and error codes
+- **Performance timing** - Duration of each sync phase
+- **Action Required** markers (purple) highlight issues needing your attention
+
+### Sharing Sync Logs
+
+From the sync debug screen:
+
+1. Tap **Share Sync Log**
+2. The log is compiled as a plain text file
+3. Share via the iOS share sheet (email, Messages, save to Files)
+4. **Sensitive data warning** - Logs may contain callsigns and service URLs; review before sharing publicly
+
+### Per-Service Sync Reports
+
+Each service generates a visual sync report (accessible from the Dashboard service cards):
+
+- **Funnel visualization** showing data flow: Fetched -> Validated -> Applied -> Uploaded
+- **Phase status badges** (success, warning, error)
+- **Record counts** at each stage
+- **Reconciliation details** for POTA job matching
+
+### Sync Timeline
+
+The sync timeline shows a chronological view of all sync events:
+
+- **Timestamps** for each sync operation
+- **Service identifier** showing which service was involved
+- **Outcome** (success, partial, error)
+- **Duration** of each operation
+
+## Upload Error Telemetry
+
+Carrier Wave collects anonymized error data to help diagnose service-wide issues:
+
+### What's Collected
+
+- **Error category** (authentication, network, validation, server error)
+- **Service and endpoint** identifier
+- **Timestamp** and retry count
+- **HTTP status code** (for network errors)
+
+### What's NOT Collected
+
+- QSO content or personal data
+- Callsigns or operator information
+- Credentials or authentication tokens
+
+### Viewing Telemetry
+
+View error telemetry in **Settings -> Advanced -> Upload Error Log**:
+
+- Error counts by service and category
+- Recent error timeline
+- Error rate trends
+
+### Disabling Telemetry
+
+Toggle off **Upload Error Telemetry** in Settings -> Advanced. This stops all error data collection.
+
+## Data Repair Services
+
+Carrier Wave includes several automated and manual repair tools for maintaining data integrity.
+
+### Automated Repairs (Run During Sync)
+
+These repairs execute automatically as part of the sync process:
+
+- **Callsign whitespace repair** - Normalizes callsign spacing and removes leading/trailing whitespace
+- **QRZ isSubmitted state repair** - Corrects sync status flags that may have become inconsistent
+- **Orphan repair** - Fixes dangling service presence records (e.g., a QSO marked as "present" on a service that has no record of it)
+- **POTA presence repair** - Rebuilds park activation tracking from actual POTA job data
+
+### One-Time Manual Repairs
+
+Available in **Settings -> Advanced -> One-Time Repairs**:
+
+| Repair | Description |
+|--------|-------------|
+| **WPM backfill** | Compute WPM for historical CW QSOs that are missing speed data |
+| **Conditions backfill** | Fetch solar conditions for sessions that were logged without conditions data |
+| **Park ref extraction** | Re-parse POTA park references from QSO notes and comments |
+| **K-index repair** | Correct invalid K-index values (e.g., values outside 0-9 range) |
+| **PHONE/SSB merge** | Consolidate legacy "PHONE" mode records to "SSB" |
+| **Activity log QSO flagging** | Re-link QSOs to activity log items |
+
+Each repair shows a progress indicator and result count when complete.
+
+### Force Re-Download
+
+When sync state is severely inconsistent, use Force Re-Download per service:
+
+1. Go to **Dashboard**
+2. Tap the service card
+3. Tap **Force Re-Download**
+4. Confirm
+
+This downloads the complete dataset from the service and rebuilds local state. It does not delete local QSOs that aren't on the service.
+
 ## Authentication Issues
 
 ### "Invalid Credentials" Error
 
-**For username/password services (QRZ, LoTW):**
+**For username/password services (QRZ, LoTW, eQSL):**
 1. Verify credentials on the service's website
 2. Check for special characters that might need escaping
 3. Re-enter credentials in Carrier Wave
@@ -126,15 +235,24 @@ Reports can be:
 | "Rate limited" | Too many requests | Wait, then retry |
 | "Server error" | Service-side issue | Try again later |
 | "Invalid ADIF" | Malformed upload data | Check QSO fields |
+| "Duplicate activation" | POTA already has this activation | Check date/park reference |
+| "Maintenance window" | POTA servers offline | Wait until 0400 UTC |
+| "Connection timeout" | WebSDR receiver unresponsive | Try a different receiver |
 
 ## Data Recovery
 
 ### Accidental Deletion
 
-Deleted QSOs are NOT recoverable from the app. However:
+Deleted QSOs are soft-deleted (hidden) and can be recovered:
+
+1. Go to **Settings -> Advanced -> Hidden QSOs**
+2. Find the deleted QSO
+3. Tap **Restore**
+
+If permanently deleted:
 - If synced to cloud services, data exists there
 - iCloud backup may contain older data
-- Re-download from LoFi or QRZ
+- Re-download from LoFi or QRZ using Force Re-Download
 
 ### Database Corruption
 

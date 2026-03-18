@@ -1,6 +1,6 @@
 ---
 title: "WebSDR Integration"
-description: "Remote receiver listening, recording, and playback"
+description: "Remote receiver listening, recording, playback, and clip export"
 weight: 13
 showToc: true
 ---
@@ -14,7 +14,8 @@ The WebSDR integration allows you to:
 - **Listen remotely** to your transmission by connecting to public {{< term "KiwiSDR" >}} receivers
 - **Record audio** during {{< term "POTA" >}} activations and logging sessions
 - **Play back recordings** with QSO markers and waveform visualization
-- **Share clips** of individual QSOs or time ranges
+- **Share clips** of individual QSOs or time ranges with embedded metadata
+- **Integrate with CW transcription** for decoded Morse overlay
 
 This is invaluable for:
 
@@ -42,9 +43,26 @@ The receiver browser displays:
 
 During {{< term "POTA" >}} activations, receivers that support your current band display a **"Good for 40m"** badge (or whichever band you're operating). This helps you quickly find receivers optimized for your frequency.
 
+### Receiver Selection Strategies
+
+Carrier Wave supports multiple receiver selection strategies:
+
+- **Near spotter** - Select a receiver close to an RBN skimmer that heard you (confirms the propagation path)
+- **Near activator** - Select a receiver close to a station you're trying to work (checks if you can be heard there)
+- **Near QTH** - Select a receiver close to your home location (useful for monitoring your own signal)
+- **Auto-select** - Carrier Wave picks the best available receiver based on your current band, available capacity, and signal quality
+
 ### Proximity Search
 
 Receivers are sorted by distance from your {{< term "grid square" >}}. The closest receivers appear first, making it easy to find strong local reception.
+
+### Cellular Warning
+
+When connected via cellular data (not Wi-Fi), Carrier Wave displays a warning banner:
+
+- **Data usage estimate** based on audio quality and recording duration
+- **Wi-Fi recommended** for extended recording sessions
+- **Continue anyway** option if you accept the data usage
 
 ## Favorites
 
@@ -106,6 +124,16 @@ If the connection drops (network interruption, receiver reboot), Carrier Wave:
 - Resumes audio from where it left off
 - Fills silence gaps in the recording to maintain accurate timeline
 
+### Receiver Quality Monitoring and Fallback
+
+Carrier Wave continuously monitors the connected receiver's quality:
+
+- **Audio level tracking** - Detects if the receiver goes silent or produces only noise
+- **Latency monitoring** - Tracks round-trip time to the receiver
+- **User count** - Monitors receiver load
+- **Automatic fallback** - If quality degrades below a threshold for more than 30 seconds, Carrier Wave can automatically switch to the next-best available receiver (if auto-select is enabled)
+- **Manual override** - A quality indicator in the WebSDR panel lets you see current receiver health and switch manually
+
 ### Redirect Handling
 
 Some {{< term "KiwiSDR" >}} servers redirect to alternate addresses. Carrier Wave follows up to **3 redirect hops** and caches the effective host/port for faster reconnects.
@@ -117,13 +145,22 @@ When connected, the receiver automatically:
 - Tunes to your **session frequency**
 - Switches to your **session mode** (e.g., {{< term "SSB" >}}, {{< term "CW" >}})
 - Applies **filter bandwidth** appropriate for the mode:
-  - {{< term "CW" >}}: 300–800 Hz
+  - {{< term "CW" >}}: 300-800 Hz
   - {{< term "SSB" >}}: 2.4 kHz
   - {{< term "AM" >}}: 6 kHz
 
 ### CW Pitch Offset
 
-For {{< term "CW" >}}, Carrier Wave applies a **pitch offset** so the signal lands in the audio passband (typically 500–700 Hz). This ensures you hear the tone clearly.
+For {{< term "CW" >}}, Carrier Wave applies a **pitch offset** so the signal lands in the audio passband (typically 500-700 Hz). This ensures you hear the tone clearly.
+
+### QSY Detection and Auto-Retune
+
+When you change your operating frequency in the Logger (via frequency entry, the BAND command, or BLE radio sync), the WebSDR receiver automatically retunes:
+
+- **Immediate retune** when you enter a new frequency
+- **Mode change** detection triggers appropriate filter bandwidth adjustment
+- **Band change** detection may trigger receiver switch if the current receiver doesn't cover the new band
+- **Seamless** - Recording continues uninterrupted during retune
 
 ### Frequency Changes
 
@@ -155,23 +192,8 @@ The WebSDR panel (visible while connected) displays:
 - **Filter bandwidth**
 - **Level meter** showing received audio strength
 - **Recording duration** (if recording is active)
+- **Quality indicator** showing receiver health
 - **Browser link** to open the receiver's web interface in Safari
-
-### Reconnecting State
-
-While reconnecting, the panel shows:
-
-- "Reconnecting…" status
-- Retry count (e.g., "Attempt 2 of 5")
-- Animated spinner
-
-### Error State
-
-If the connection fails permanently, the panel shows:
-
-- Error message (e.g., "Receiver busy", "Connection timeout")
-- **Retry** button to attempt reconnection
-- **Change Receiver** button to pick a different receiver
 
 ## Recording
 
@@ -236,13 +258,30 @@ The waveform shows:
 - **Drag-to-seek scrubber** to jump to any position
 - **Speed control** (0.5x, 0.75x, 1x, 1.25x, 1.5x, 2x)
 
+### Speed Control
+
+Adjust playback speed for review:
+
+- **0.5x** - Half speed for detailed CW analysis
+- **0.75x** - Slightly slower for catching details
+- **1x** - Normal speed
+- **1.25x-2x** - Faster for scanning through long recordings
+
+Speed changes are smooth (no audio artifacts) and maintain correct pitch.
+
 ### QSO-Synced Navigation
 
 - **Tap a QSO** in the list to seek to that QSO's timestamp
 - **Scrub the waveform** to highlight the active QSO
 - **Auto-scroll** to keep the active QSO visible in the list
 
-This makes it easy to review individual QSOs or jump to a specific contact.
+### Transcript Sync with Playback
+
+When CW transcription data is available for the recording, the transcript scrolls in sync with audio playback:
+
+- **Highlighted text** shows the portion of the transcript corresponding to the current playback position
+- **Tap transcript text** to seek to that point in the recording
+- **Conversation view** updates to show the active exchange
 
 ## Compact Player
 
@@ -257,11 +296,9 @@ The card displays:
 - **Recording duration**
 - **Tap to expand** to full-screen player
 
-The compact player auto-loads QSOs by session ID, so QSO markers appear immediately.
+## Clip Export with Metadata
 
-## Share Clips
-
-Export a time range from a recording as a standalone audio file.
+Export a time range from a recording as a standalone audio file with embedded metadata.
 
 ### Creating a Clip
 
@@ -270,9 +307,19 @@ Export a time range from a recording as a standalone audio file.
 3. Adjust the **range handles** to select the desired time window (default: active QSO start/end)
 4. Tap **Export Clip**
 
+### M4A Export
+
+The clip is exported as an **M4A** file (compressed audio) with metadata tags:
+
+- **Title** - Callsign and QSO date
+- **Artist** - Your callsign
+- **Album** - Session name
+- **Comment** - Frequency, mode, park reference
+- **Artwork** - Session thumbnail
+
 ### Sharing
 
-The clip is exported as an **M4A** file (compressed audio) and opens the iOS share sheet. Share via:
+Share via the iOS share sheet:
 
 - AirDrop
 - Messages
@@ -302,6 +349,8 @@ Deleted recordings cannot be recovered.
 
 ## See Also
 
-- [Logger]({{< relref "logger.md" >}}) – Commands and logging flow
-- [POTA]({{< relref "pota.md" >}}) – Activation workflow
-- [Settings]({{< relref "settings.md" >}}) – WebSDR preferences
+- [Logger]({{< relref "logger.md" >}}) -- Commands and logging flow
+- [CW Transcription]({{< relref "cw-transcription.md" >}}) -- Morse decoding with WebSDR audio
+- [POTA]({{< relref "pota.md" >}}) -- Activation workflow
+- [Export & Sharing]({{< relref "export.md" >}}) -- Clip export and share cards
+- [Settings]({{< relref "settings.md" >}}) -- WebSDR preferences

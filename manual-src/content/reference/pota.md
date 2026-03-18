@@ -25,7 +25,7 @@ Enter one or more park references using any of these methods:
 
 Select multiple parks to activate simultaneously. Parks appear as removable chips in the session header. When you post a spot, it goes to **all** selected parks at once.
 
-Tap the **×** on a park chip to remove it from the activation. This is useful for transitioning between parks in rove mode or correcting an accidental selection.
+Tap the **x** on a park chip to remove it from the activation. This is useful for transitioning between parks in rove mode or correcting an accidental selection.
 
 ### Hunt-First Flow
 
@@ -98,7 +98,7 @@ When you start a session, an initial spot is posted immediately (if you've set a
 
 ### Periodic Spots
 
-The auto-spot timer posts a spot every **10 minutes** (configurable in Settings → POTA). This keeps your activation visible in the spot feed.
+The auto-spot timer posts a spot every **10 minutes** (configurable in Settings -> POTA). This keeps your activation visible in the spot feed.
 
 The timer:
 
@@ -112,15 +112,15 @@ When you change frequency or mode, Carrier Wave prompts you to post a **QSY spot
 
 ### QRT Spots
 
-When you end a session, a **QRT spot** is posted automatically (if the session was previously spotted). This can be disabled in Settings → POTA.
+When you end a session, a **QRT spot** is posted automatically (if the session was previously spotted). This can be disabled in Settings -> POTA.
 
 ### Manual Spots with SPOT Command
 
 Use `SPOT` to post a manual spot with an optional comment:
 
-- `SPOT` — post a basic spot
-- `SPOT QRT` — post a QRT spot immediately
-- `SPOT QSY 14.062` — post a QSY spot with new frequency
+- `SPOT` -- post a basic spot
+- `SPOT QRT` -- post a QRT spot immediately
+- `SPOT QSY 14.062` -- post a QSY spot with new frequency
 
 ## Spot Comments
 
@@ -181,7 +181,7 @@ Swipe left on a session to reveal the delete button. A confirmation dialog preve
 
 ### Professional Statistician Mode
 
-When enabled in Settings → POTA, session detail includes:
+When enabled in Settings -> POTA, session detail includes:
 
 - Band distribution chart
 - Mode distribution chart
@@ -207,9 +207,9 @@ Each group becomes a separate ADIF file for upload. For two-fer activations, QSO
 
 Each activation shows one of three states:
 
-- **Pending** — QSOs have not been uploaded
-- **Submitted** — QSOs uploaded, waiting for POTA processing (blue clock icon)
-- **Accepted** — POTA has accepted the activation
+- **Pending** -- QSOs have not been uploaded
+- **Submitted** -- QSOs uploaded, waiting for POTA processing (blue clock icon)
+- **Accepted** -- POTA has accepted the activation
 
 ### Upload Prompt
 
@@ -218,6 +218,16 @@ When you end a session, a sheet prompts you to upload immediately or defer. The 
 - Scrollable content showing all activations
 - Expandable detents (half-height, full-screen)
 - Upload, reject, or export buttons
+
+### Conditional Upload
+
+Carrier Wave can be configured to conditionally hold uploads until specific criteria are met:
+
+- **Minimum QSO count** - Hold uploads for activations with fewer than 10 QSOs (the POTA minimum)
+- **Review required** - Require manual review before uploading (useful for verifying park references and QSO data)
+- **Network condition** - Defer uploads until Wi-Fi is available (avoid large uploads on cellular)
+
+Configure conditional upload behavior in Settings -> POTA -> Upload Settings.
 
 ### Bulk Actions
 
@@ -230,6 +240,15 @@ In the Activations view, use multi-select mode to:
 ## Upload Status & Jobs
 
 POTA upload jobs are tracked and displayed in the Activations view.
+
+### Job Monitoring
+
+Carrier Wave provides real-time monitoring of POTA upload jobs:
+
+- **Job progress** updates automatically as jobs move through the POTA processing pipeline
+- **Push notifications** alert you when a job completes or fails (if enabled)
+- **Background polling** checks job status periodically without requiring the app to be in the foreground
+- **Status timeline** shows the progression from submitted to queued to processing to completed
 
 ### Job Matching
 
@@ -260,11 +279,22 @@ During sync, Carrier Wave reconciles upload status from the POTA job log:
 
 ### Force Reupload (Debug Mode)
 
-In Settings → Advanced → Debug Mode, a **Force Reupload** button resets all QSOs in the activation to pending and triggers a fresh upload. Use this if upload status is out of sync.
+In Settings -> Advanced -> Debug Mode, a **Force Reupload** button resets all QSOs in the activation to pending and triggers a fresh upload. Use this if upload status is out of sync.
 
 ### Maintenance Window Handling
 
 POTA servers are offline from **2330-0400 UTC** for maintenance. If you end a session during this window, Carrier Wave warns you and suggests uploading later.
+
+## PSK Reporter: Who Heard Me?
+
+After a session using digital modes (FT8, FT4, WSPR), the "Who Heard Me?" section queries PSK Reporter data for your callsign during the session time window:
+
+- **Map overlay** showing receiving stations that decoded your signal
+- **Station count** and geographic distribution
+- **Signal reports** (SNR) from each receiving station
+- **Band breakdown** showing which bands had the best propagation
+
+This provides post-session propagation analysis beyond what RBN spots capture, particularly useful for digital mode activations.
 
 ## POTA Activation Detail
 
@@ -291,13 +321,41 @@ List of upload jobs for this activation, showing:
 - Status and error messages
 - Tap for detailed job log
 
-### QSO Timeline
+### Session Timeline
 
-A horizontal bar with band-colored ticks representing each QSO. Collapsed gaps indicate periods of inactivity (more than 10 minutes between QSOs).
+A horizontal bar with band-colored ticks representing each QSO. Collapsed gaps indicate periods of inactivity (more than 10 minutes between QSOs). Tap the timeline to enter replay mode, which animates QSOs on the map chronologically.
 
 ### QSO List
 
 Scrollable list of all QSOs in the activation. Tap a row to expand and see all fields. Swipe left to delete individual QSOs (with confirmation).
+
+### QSO Distance Histogram
+
+A histogram showing the distribution of contact distances during the activation:
+
+- **X-axis** represents distance ranges (in miles or km based on your units preference)
+- **Y-axis** shows the count of QSOs in each range
+- **Color coding** by band to show which bands reached which distances
+
+This visualization helps you understand propagation patterns and the geographic reach of your activation.
+
+### Signal Mosaic (State Grid)
+
+A grid visualization showing which US states and Canadian provinces you contacted during the activation:
+
+- **Colored cells** indicate states/provinces worked
+- **Color intensity** maps to the number of QSOs per state
+- **Empty cells** highlight gaps in coverage
+
+The mosaic provides a quick visual summary of your geographic spread across North America.
+
+### Club Members Summary
+
+If you belong to any clubs (via Polo notes lists), the activation detail shows a summary of club members you worked during the activation:
+
+- **Club name** and count of members contacted
+- **Member callsigns** in an expandable list
+- **Percentage** of club roster worked
 
 ### Statistics Section (Professional Statistician Mode)
 
@@ -335,20 +393,20 @@ An expandable section displays all {{< term "RBN" >}} and {{< term "POTA" >}} sp
 
 Recorded spots are merged and organized identically to the Logger's live spot view:
 
-- **Human spots first** — POTA spots (posted by hunters) appear before RBN spots
-- **Deduplication** — When the same callsign appears on the same band in both POTA and RBN data, the spots are combined with POTA as the preferred source
-- **Band grouping** — Spots organized by band for easy scanning
-- **RBN region collapsing** — Consecutive RBN spots from the same region are collapsed into expandable groups
+- **Human spots first** -- POTA spots (posted by hunters) appear before RBN spots
+- **Deduplication** -- When the same callsign appears on the same band in both POTA and RBN data, the spots are combined with POTA as the preferred source
+- **Band grouping** -- Spots organized by band for easy scanning
+- **RBN region collapsing** -- Consecutive RBN spots from the same region are collapsed into expandable groups
 
 #### Visual Indicators
 
 Each spot row displays the same visual indicators used in the live Logger:
 
-- **Age color coding** — Green (<2 min), Blue (2–10 min), Orange (10–30 min), Gray (>30 min), based on the spot's age at time of capture
-- **SELF** — The spotted station matches your callsign
-- **DUPE** — Already worked on the same band and date
-- **TODAY** — Worked on a different band the same day
-- **PREV** — Worked in a previous session
+- **Age color coding** -- Green (<2 min), Blue (2-10 min), Orange (10-30 min), Gray (>30 min), based on the spot's age at time of capture
+- **SELF** -- The spotted station matches your callsign
+- **DUPE** -- Already worked on the same band and date
+- **TODAY** -- Worked on a different band the same day
+- **PREV** -- Worked in a previous session
 
 #### Propagation Review
 
@@ -370,6 +428,7 @@ Map showing:
 
 - Generate brag sheet (shareable image card)
 - Export to ADIF
+- Export video (animated session replay)
 - Save to Photos
 - ShareLink for system share sheet
 
@@ -398,9 +457,15 @@ When enabled, brag sheets include:
 
 Use **ShareLink** to share via Messages, Mail, AirDrop, etc. Or tap **Save to Photos** to save the image to your library.
 
+See [Brag Sheets & Share Cards](/reference/brag-sheets/) for full customization options.
+
+## Video Export
+
+Export an animated video of your activation showing QSOs plotted on a map over time. See [Video Export](/reference/video-export/) for full details on modes, map styles, and rendering options.
+
 ## POTA Settings
 
-Configure POTA-specific behavior in Settings → POTA.
+Configure POTA-specific behavior in Settings -> POTA.
 
 ### Auto-Spotting Interval
 
@@ -432,9 +497,12 @@ POTA requires **10 QSOs** for a valid activation. Carrier Wave tracks your progr
 
 ## See Also
 
-- [Logger](/reference/logger/) — {{< term "QSO" >}} logging commands and workflow
-- [Spot Monitoring](/reference/spots/) — POTA spot feed and filtering
-- [Map View](/reference/map/) — QSO visualization and rove routes
-- [WebSDR](/reference/websdr/) — Remote receiver integration for hunt-first activations
-- [Export & Sharing](/reference/export/) — ADIF export and brag sheet generation
+- [Logger](/reference/logger/) -- {{< term "QSO" >}} logging commands and workflow
+- [Activity Programs](/reference/activations/) -- SOTA, WWFF, and other programs
+- [Spot Monitoring](/reference/spots/) -- POTA spot feed and filtering
+- [Map View](/reference/map/) -- QSO visualization and rove routes
+- [WebSDR](/reference/websdr/) -- Remote receiver integration for hunt-first activations
+- [Export & Sharing](/reference/export/) -- ADIF export and brag sheet generation
+- [Brag Sheets & Share Cards](/reference/brag-sheets/) -- Detailed brag sheet customization
+- [Video Export](/reference/video-export/) -- Animated session replay videos
 - [Service Sync Flow](/reference/sync-flow/) - Sync and upload mechanics

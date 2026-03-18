@@ -6,73 +6,64 @@ weight: 5
 
 You've set up the app. Now let's log a contact.
 
-## Open the Logger
-
-Tap the **Logger** tab at the bottom of the screen. You'll see the main logging interface.
-
 ## Start a Session
 
-Tap the **Start Session** button. A wizard appears where you configure:
+Tap the **Logger** tab, then **Start Session**. A wizard lets you configure:
 
-1. **Mode** — Select your operating mode (SSB, CW, FT8, etc.)
-2. **Frequency** — Enter your operating frequency (optional — you can set it later)
-3. **Activation type** — Choose Casual, POTA, or SOTA
-4. **Equipment** — Select your radio, antenna, and other gear
+1. **Mode** — SSB, FM, CW, FT8, or others
+2. **Frequency** — Optional at first; you can set it later if you're scanning around
+3. **Activation Type** — Casual, POTA (pick a park from a searchable list or find nearby parks via GPS), or SOTA
+4. **Equipment** — Radio, antenna, key, and microphone
+5. **Power** — Transmit power in watts
 
-You can save these as defaults for next time.
+Tap **Save as Defaults** so you don't reconfigure every time.
+
+{{< callout "tip" "Live Activity" >}}
+When a session starts, Carrier Wave can show a Live Activity on your lock screen and Dynamic Island — see your session status without opening the app.
+{{< /callout >}}
 
 ## Enter the Contact
 
-Now you're ready to log:
-
 ### 1. Callsign
 
-Tap the callsign field and enter the other station's call. As you type:
-- Carrier Wave searches your callsign notes and QRZ for matching calls
-- When found, their name, location, and grid appear in an info card
-- A contact count badge shows if you've worked them before
+Type the other station's call. As you type, Carrier Wave looks them up — their name, location, and grid appear in an info card. A badge shows if you've worked them before.
 
-### 2. RST Sent / RST Received
+### 2. Signal Reports
 
-Enter the signal reports you exchanged:
-- **RST Sent** — The report you gave them
-- **RST Received** — The report they gave you
-
-Fields start empty with placeholder hints (599 for CW, 59 for voice).
+Enter RST Sent (what you told them) and RST Received (what they told you). Fields show placeholder hints (599 for CW, 59 for voice).
 
 ### 3. Optional Fields
 
-Tap the chevron to expand additional fields:
-- **State/Province** — Their state (often auto-filled from QRZ)
-- **Park** — If they're a POTA activator, enter the park reference
-- **Grid** — Their grid square
-- **Notes** — Anything memorable about the contact
+Tap the chevron to expand: state/province, park reference, summit, grid square, and notes.
 
 ### 4. Log It
 
-Tap **LOG** to save the contact.
+Tap **LOG**. Your contact is saved locally and queued for cloud sync. The callsign field auto-focuses for your next contact.
 
-That's it! Your contact is:
-- Saved locally to your device
-- Queued for sync to your connected services
-- Visible in your Logs tab
+## Quick Entry
 
-The callsign field auto-focuses so you can immediately start entering the next contact.
+For rapid logging, type everything in one line:
 
-{{< callout "tip" "Quick Entry" >}}
-For rapid logging, type everything in one line: `K6TEST 599 CA` (callsign, RST, state). Color-coded tokens show how the input will be parsed.
-{{< /callout >}}
+```
+K6TEST 599 CA US-0189
+```
+
+Color-coded tokens show how each piece will be parsed — callsign, RST, state, park reference. Anything unrecognized becomes a note.
 
 ## Watch It Sync
 
-Switch to the **Dashboard** tab. You'll see your services listed with status indicators. Within a few seconds (depending on network conditions), your QSO syncs to the cloud.
+On the **Dashboard**, colored dots show service status: green (synced), yellow (syncing), red (error). Your {{< term "QSO" >}} reaches the cloud within seconds.
 
 ## Duplicate Detection
 
-If you log the same station twice on the same band and date, Carrier Wave blocks the duplicate and shows a warning. This prevents accidental double-logging.
+Same station, same band, same date? Carrier Wave blocks the duplicate. Different band or different date? No warning — those are valid separate contacts.
 
-Different band? Different date? No warning — those are valid separate contacts.
+## Photos, Video, and Sharing
+
+Attach **photos** to your session — your setup, the park sign, the view. After the session, create a **video export** showing your contacts on a map timeline, or generate a **brag sheet** stat card. Both are great for sharing on social media.
+
+You can also export your session as a **Cabrillo** file for contest submissions.
 
 ## What's Next?
 
-Congratulations on your first logged QSO! Next, let's explore [your Dashboard](/guide/dashboard/) to understand your statistics.
+Congratulations on your first logged {{< term "QSO" >}}! Next, let's explore [your Dashboard](/guide/dashboard/) to understand your statistics.

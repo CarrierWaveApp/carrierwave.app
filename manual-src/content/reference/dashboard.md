@@ -22,7 +22,7 @@ Tap any cell to view contacts and activity for that day.
 
 ## Configurable Metrics Card
 
-Choose 1-2 key metrics to display on your dashboard card. Configure the displayed metrics in Settings → Dashboard Metrics.
+Choose 1-2 key metrics to display on your dashboard card. Configure the displayed metrics in Settings -> Dashboard Metrics.
 
 ### Streak Metrics
 
@@ -109,6 +109,92 @@ Tap a streak to view:
 - Historical date ranges for the streak
 - All-time best streak comparison
 
+## Equipment Usage Card
+
+The Equipment Usage card displays statistics about your gear:
+
+- **Most-used radio** and total QSOs with each rig
+- **Antenna breakdown** showing contacts per antenna
+- **Key/mic usage** for CW and voice modes
+
+Tap the card to drill down into equipment-specific QSO lists. This helps you track which gear gets the most use and correlate equipment with operating performance.
+
+## Friends on Air
+
+The Friends on Air card surfaces real-time spot data for your accepted friends:
+
+- **Active friends** currently spotted on POTA or RBN
+- **Frequency, mode, and park reference** for each friend
+- **Tap to tune** - opens the Logger pre-filled with the friend's frequency
+
+This card only appears when you have friends configured and at least one is currently active.
+
+### Friend Activity Feed
+
+Below the Friends on Air card, a compact activity feed shows recent notable achievements from your friends (new DXCC, activations completed, streak milestones). Tap any entry to view the friend's profile.
+
+## Smart Spot Needs Dashboard
+
+The Needs dashboard card shows a summary of currently active spots that match your configured need categories:
+
+- **Count of matching spots** across all need categories
+- **Top needs** showing the most relevant spots (new DXCC, WAS, POTA parks)
+- **Tap to expand** into the full [Smart Spot Needs](/reference/smart-needs/) view
+
+Configure need categories in Settings -> Smart Needs or see the dedicated [Smart Spot Needs](/reference/smart-needs/) page.
+
+## POTA Awards Progress
+
+Track your progress toward POTA awards directly from the Dashboard:
+
+- **Activator awards** (Bronze: 10 parks, Silver: 50, Gold: 100, Platinum: 250, Sapphire: 500)
+- **Hunter awards** based on unique parks worked
+- **Progress bar** showing how close you are to the next tier
+
+Tap the card to view a detailed breakdown of parks activated and hunted.
+
+## Band Openings Card
+
+The Band Openings card provides a quick assessment of current HF propagation:
+
+- **Band-by-region grid** showing which bands are open to which geographic areas
+- **Color-coded cells** (green = open, yellow = marginal, gray = closed)
+- **Data sourced** from RBN spot density and PSK Reporter coverage
+
+Tap the card to view the full conditions history timeline.
+
+## Active DXpeditions Card
+
+Shows currently active DXpeditions with:
+
+- **Entity and callsign** of the DXpedition
+- **Bands and modes** they're reported on
+- **"Needed" badge** if the entity matches your DXCC needs
+
+Data is sourced from DX cluster feeds. Tap a DXpedition to view frequencies and spot history.
+
+## On Air Card
+
+The On Air card provides a unified view of current operating conditions:
+
+- **Solar conditions** (K-index, SFI, A-index sparklines)
+- **Band conditions summary** (Good/Fair/Poor per band)
+- **Weather** at your QTH
+- **Active spots count** and friend activity indicator
+
+This card consolidates multiple data sources into a single glanceable view. Tap any section to drill into its detailed view.
+
+## Professional Statistician Mode
+
+When enabled in Settings -> POTA -> Professional Statistician Mode, the Dashboard gains additional statistical depth:
+
+- **Distribution charts** for QSO timing, distance, and signal reports
+- **Box plots** for RST and distance metrics
+- **Cumulative distribution functions** (CDF) for key operating metrics
+- **Statistical summary tables** with median, mean, standard deviation, and percentiles
+
+This mode is designed for operators who want rigorous quantitative analysis of their operating patterns.
+
 ## Conditions Card
 
 A compact conditions card shows recent propagation and environmental data:
@@ -158,7 +244,7 @@ Tap any service to open its detail sheet showing:
 - {{< term "Sync report" >}} with reconciliation details
 - Error details (if applicable)
 
-Supported services: {{< term "QRZ.com" >}}, {{< term "POTA" >}}, {{< term "LoFi" >}}, {{< term "LoTW" >}}, {{< term "HAMRS" >}}, {{< term "Club Log" >}}
+Supported services: {{< term "QRZ.com" >}}, {{< term "POTA" >}}, {{< term "LoFi" >}}, {{< term "LoTW" >}}, {{< term "HAMRS" >}}, {{< term "Club Log" >}}, eQSL
 
 ## Sync Reports
 
@@ -207,3 +293,5 @@ On iPad or in landscape orientation:
 - [Service Sync Flow](/reference/sync-flow/) - Understand sync timing and behavior
 - [Settings & Services](/reference/settings/) - Configure service connections
 - [Activity Log](/reference/activity-log/) - Daily QSO tracking for hunters
+- [Smart Spot Needs](/reference/smart-needs/) - Configure need-based spot matching
+- [Brag Sheets & Share Cards](/reference/brag-sheets/) - Share your statistics

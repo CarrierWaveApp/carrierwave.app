@@ -4,86 +4,66 @@ description: "Understanding cloud logging services and confirmations"
 weight: 3
 ---
 
-Your contacts live on your phone, but they're also valuable in the cloud. Here's why.
+Your contacts live on your phone, but they become more valuable in the cloud.
 
 ## The Confirmation Problem
 
-You logged a QSO with W1AW. You know it happened. But how does anyone else know?
+You logged a {{< term "QSO" >}} with W1AW. You know it happened. But how does anyone else know?
 
-**Confirmation** is when both stations submit matching log entries for the same contact. When the time, frequency, and callsigns match, that QSO is "confirmed" - there's proof from both sides that it occurred.
+**Confirmation** is when both stations submit matching log entries. When the time, frequency, and callsigns match, that {{< term "QSO" >}} is "confirmed" — proof from both sides.
 
 Confirmations matter for:
-- **Awards** like {{< term "DXCC" >}} (100 countries) or {{< term "WAS" >}} (50 states)
+- **Awards** like {{< term "DXCC" >}} (work 100 countries) or {{< term "WAS" >}} (all 50 states)
 - **POTA** hunter and activator credits
-- **Contest scoring** verification
+- **Contest scoring**
 
-## The Services
+## Backup and Community
 
-Carrier Wave syncs with several cloud logging services, each serving a different purpose:
+Cloud sync also means automatic backup — your log survives a lost or broken phone. Carrier Wave supports **Backup & Restore** for complete data exports too.
 
-### QRZ.com
+Beyond safety, connected services unlock social features:
+- **Friends on Air** — See when friends are spotted on the bands
+- **Clubs** — Join ham radio clubs and see club activity
+- **Challenges** — Competitive events that motivate you to get on the air
+- **Brag Sheets and Share Cards** — Shareable stat cards for social media
 
-The most popular general-purpose logbook. QRZ provides:
-- Callsign lookups (name, address, license info)
-- Online logbook viewable by anyone
-- Basic confirmation matching
+## The Seven Services
 
-**Sync direction:** Upload and download
+Carrier Wave syncs with seven cloud services:
 
-### Logbook of The World (LoTW)
+**QRZ.com** — The most popular ham radio site. Callsign lookups, online logbook, basic confirmation matching.
 
-ARRL's official confirmation system. LoTW is the gold standard for award credits:
-- Digitally signed confirmations
-- Required for many ARRL awards
-- Highest trust level in the hobby
+**Logbook of The World (LoTW)** — ARRL's official confirmation system. The gold standard for award credits.
 
-**Sync direction:** Download only (upload via ARRL tools)
+**Parks on the Air (POTA)** — Upload activator logs, track hunter credits, monitor POTA awards progress.
 
-### Parks on the Air (POTA)
+**Ham2K LoFi** — A modern service designed for mobile operators. Fast cross-device sync.
 
-If you activate parks or hunt park stations, POTA tracking is essential:
-- Activator logs uploaded here
-- Hunter credits automatically applied
-- Park-to-park tracking
+**Club Log** — Popular with DXers for tracking long-distance contacts. Upload and download.
 
-**Sync direction:** Upload only
+**HAMRS** — Download logs from HAMRS into Carrier Wave.
 
-### Ham2K LoFi
-
-A modern logging service designed for mobile operators:
-- Fast sync across all your devices
-- Works great with field logging
-- Clean, simple interface
-
-**Sync direction:** Upload and download
-
-### Club Log
-
-A logbook service popular with DXers:
-- Bidirectional {{< term "ADIF" >}} sync
-- Batch upload and incremental download
-- Real-time single-QSO upload
-
-**Sync direction:** Upload and download
-
-### HAMRS
-
-Cloud sync for HAMRS users:
-- Cross-platform compatibility
-- Field logging focused
-
-**Sync direction:** Download
+**eQSL** — Send and receive digital QSL confirmation cards.
 
 ## Why Multiple Services?
 
-Each service has strengths. You might:
-- Use **QRZ** as your primary logbook
-- Upload activations to **POTA**
-- Download confirmations from **LoTW**
-- Sync across devices with **LoFi**
-- Mirror your log to **Club Log** for DX tracking
+Each service has strengths. A typical setup:
+- **QRZ** as primary logbook and callsign lookups
+- **POTA** for park activation uploads
+- **LoTW** for award confirmations
+- **LoFi** for cross-device sync
 
-Carrier Wave handles all of this automatically. Log once, sync everywhere.
+Carrier Wave handles all of this automatically — log once, sync everywhere.
+
+| Service | Uploads | Downloads |
+|---------|---------|-----------|
+| QRZ.com | QSOs | QSOs, Callsign info |
+| POTA | Activations | — |
+| LoFi | QSOs | QSOs |
+| LoTW | — | Confirmations |
+| Club Log | QSOs | QSOs |
+| HAMRS | — | QSOs |
+| eQSL | QSOs | QSOs |
 
 ## What's Next?
 

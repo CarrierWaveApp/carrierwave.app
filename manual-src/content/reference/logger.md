@@ -27,7 +27,7 @@ When you start a new session, the wizard guides you through:
 
 **Additional Fields:**
 - **Attendees** - Who's operating (for multi-operator sessions)
-- **Photos** - Session photos
+- **Photos** - Session photos (captured or imported from library)
 - **Notes** - Session-level notes
 
 **Activation Details:**
@@ -36,6 +36,10 @@ When operating {{< term "POTA" >}} or {{< term "SOTA" >}}:
 - **Park Reference** - Supports multi-park n-fer operations with removable chips
 - Search parks by name/reference or find nearby parks using GPS
 - Number shorthand: typing "1234" expands to "US-1234"
+
+**Contest Templates:**
+
+If you're operating a contest, Carrier Wave can pre-configure your session from the WA7BNM contest calendar. The calendar is polled every 6 hours for upcoming events. Select a contest from the list, and the wizard populates the appropriate mode, band, exchange fields, and logging template. See [Contest Support](/reference/contests/) for details.
 
 **Portable Callsign:**
 
@@ -59,6 +63,10 @@ Only one session can be active at a time. Starting a new session automatically p
 **Session Actions:**
 - **Continue** - Resume a paused session (makes it active)
 - **Finish** - End a paused session permanently
+
+### Session Pause & Resume
+
+Pause an active session to take a break without ending it. The session timer stops while paused and resumes when you continue. Auto-spotting also pauses and resumes with the session state. Paused sessions appear in the session list with a pause indicator.
 
 ## Callsign Entry
 
@@ -103,7 +111,7 @@ AJ7CM 579 WA US-0189
 
 ### Parsing Rules
 
-- **RST** - {{< term "RST" >}} reports (single value → both sent/received; two consecutive → sent/received)
+- **RST** - {{< term "RST" >}} reports (single value -> both sent/received; two consecutive -> sent/received)
 - **Grid Square** - 4- or 6-character Maidenhead locators
 - **State/Province** - US states, Canadian provinces
 - **Park References** - {{< term "POTA" >}} refs (US-0189, K-1234, VE-0100)
@@ -146,7 +154,7 @@ For {{< term "POTA" >}} contacts:
 - Supports multiple park references (activator operating from multiple parks)
 - Chip-based UI with removable badges
 - Search picker with nearby parks from GPS
-- Number shorthand: `1234` → `US-1234`
+- Number shorthand: `1234` -> `US-1234`
 
 ### Operator
 
@@ -160,7 +168,7 @@ Free-form text for memorable details about the contact.
 
 ### Field Visibility
 
-**Always-Visible Fields:** Configure in Settings → Logger which fields appear without expanding.
+**Always-Visible Fields:** Configure in Settings -> Logger which fields appear without expanding.
 
 **More Chevron:** Tap to expand additional fields when needed.
 
@@ -280,6 +288,17 @@ The unified frequency warning banner shows:
 
 **Note:** Warnings don't prevent logging. You may be logging someone else's {{< term "QSO" >}}s or operating under a different license.
 
+### Band Plan Visual Chart
+
+The BAND command displays a visual chart of the current band plan, showing:
+
+- **Sub-band segments** color-coded by mode allocation (CW, data, phone)
+- **License class boundaries** highlighted for your configured class
+- **Your current frequency** indicated by a cursor marker
+- **Active spots** overlaid as density indicators showing where activity is concentrated
+
+This chart provides an at-a-glance view of band allocation and activity, helping you find clear frequencies and stay within your privileges.
+
 ### Sub-kHz Precision
 
 Supports frequencies like `14.03050` or dot-separated format `14.030.50` for precise logging.
@@ -288,7 +307,7 @@ Supports frequencies like `14.03050` or dot-separated format `14.030.50` for pre
 
 ### RBN Monitoring
 
-Monitors {{< term "RBN" >}} activity within ±2kHz of your frequency:
+Monitors {{< term "RBN" >}} activity within +/-2kHz of your frequency:
 - **QRM Assessment** - Alerts when other stations are operating nearby
 - **Operator Nearby** - Suppressed when the nearby spot is the station you're working
 
@@ -299,9 +318,9 @@ Combines license violations and frequency activity warnings in a single banner f
 ## Auto Mode Detection
 
 When you change frequency, Carrier Wave automatically switches to the appropriate mode:
-- {{< term "CW" >}} segments → CW mode
-- DATA segments → FT8/digital mode
-- Phone segments → {{< term "SSB" >}} mode
+- {{< term "CW" >}} segments -> CW mode
+- DATA segments -> FT8/digital mode
+- Phone segments -> {{< term "SSB" >}} mode
 
 **Toggle:** Enable/disable in Settings.
 
@@ -346,11 +365,11 @@ Swipe left on any {{< term "QSO" >}} to delete:
 Persistent row above keyboard with:
 - Digits 0-9
 - Decimal point
-- Configurable symbols
+- Configurable symbols (customize in Settings -> Logger -> Number Row)
 
 ### Command Row
 
-Configurable buttons for frequently-used commands. Customize in Settings → Logger.
+Configurable buttons for frequently-used commands. Customize in Settings -> Logger -> Command Row. Drag to reorder buttons and toggle visibility.
 
 ### Dismiss Button
 
@@ -374,6 +393,25 @@ Tappable capsule in the session header shows current equipment. Use `RIG` comman
 ### ADIF Export
 
 Equipment is exported as `MY_RIG` in ADIF files for compatibility with other logging software.
+
+## Session Photos
+
+Attach photos to your session for documenting your operating location, setup, or conditions.
+
+### Adding Photos
+
+Add photos during session start in the wizard, or at any time during the session from the session detail view:
+
+- **Camera** - Capture a new photo
+- **Photo Library** - Select existing photos
+
+### Viewing Photos
+
+Photos appear in the session detail view with a full-screen viewer. Swipe between photos and pinch to zoom.
+
+### Photo Storage
+
+Session photos are stored locally on device. They are included in iCloud Drive backup mirrors when enabled but do not sync via CKSyncEngine to other devices due to size constraints.
 
 ## Session Management
 
@@ -401,7 +439,70 @@ Hides all {{< term "QSO" >}}s and cleans up spots and photos.
 
 ### Keep Screen On
 
-Enable in Settings → Logger to prevent device sleep during active sessions.
+Enable in Settings -> Logger to prevent device sleep during active sessions.
+
+## Session Timeline & Replay
+
+### QSO Timeline
+
+Each session displays a horizontal timeline bar showing the timing and distribution of contacts:
+
+- **Band-colored ticks** for each QSO
+- **Collapsed gaps** indicate periods of inactivity (more than 10 minutes between contacts)
+- **Mode change markers** showing when you switched modes
+
+### Session Replay
+
+From the session detail view, tap the timeline to enter replay mode. The replay animates your session chronologically, plotting each QSO on the map as it occurred. Use the scrubber to jump to any point in the session.
+
+## Live Activity & Dynamic Island
+
+When a logging session is active, Carrier Wave displays a Live Activity on the lock screen and in the Dynamic Island.
+
+### Lock Screen Display
+
+- Current {{< term "QSO" >}} count
+- Operating frequency and mode
+- Park reference (for POTA activations)
+- Last callsign logged
+
+### Dynamic Island
+
+- **Compact view** - QSO count and park reference
+- **Expanded view** - Full session details including frequency, mode, and last callsign
+
+The Live Activity updates in real time as you log contacts, change frequency, or pause/resume the session. It clears automatically when you end the session.
+
+See [Widgets & Live Activity](/reference/widgets/) for details on all widget types.
+
+## Session Share Cards
+
+Generate a shareable image card summarizing your session's highlights:
+
+- **Map** with QSO locations and geodesic arcs
+- **Session statistics** (QSO count, duration, bands, modes)
+- **Equipment summary**
+- **Conditions** (solar and weather)
+
+Share cards are generated from the session detail view via the share button. See [Brag Sheets & Share Cards](/reference/brag-sheets/) for customization options.
+
+## Video Export
+
+Export an animated video of your session showing QSOs plotted on a map over time with toast-style notifications for each contact. Video export supports real-time and highlight modes, configurable map styles, and optional audio overlay.
+
+See [Video Export](/reference/video-export/) for full details.
+
+## Rove Stop Batch Grid Editing
+
+During POTA rove sessions, you can batch-edit the grid square for all QSOs at a specific stop:
+
+1. Open the session detail view
+2. Tap the rove stop you want to edit
+3. Select **Edit Grid for Stop**
+4. Enter the corrected grid square
+5. All QSOs at that stop update to the new grid
+
+This is useful when GPS was inaccurate or unavailable at a stop, or when you realize you logged the wrong grid after moving on.
 
 ## iPad Layout
 
@@ -435,9 +536,12 @@ Success haptic (gentle bump) when logging a {{< term "QSO" >}}.
 
 ## See Also
 
+- [FT8 Operating Suite](/reference/ft8/) - FT8 waterfall, decoding, and TX control
+- [BLE Radio Control](/reference/radio-control/) - Frequency and mode sync with your radio
 - [POTA Activations](/reference/pota/) - Activation tracking and park management
 - [Spot Monitoring](/reference/spots/) - {{< term "RBN" >}}, {{< term "POTA" >}}, and P2P spots
 - [Activity Log](/reference/activity-log/) - Daily QSO tracking for hunters
 - [Map View](/reference/map/) - Visualize contacts geographically
 - [WebSDR Integration](/reference/websdr/) - Remote receiver access
+- [Contest Support](/reference/contests/) - Contest templates and Cabrillo export
 - [Settings & Services](/reference/settings/) - Configure Logger behavior

@@ -1,11 +1,11 @@
 ---
 title: "Widgets & Live Activity"
-description: "Home screen widgets, lock screen widgets, and Dynamic Island"
+description: "Home screen widgets, lock screen widgets, Dynamic Island, and watchOS companion"
 weight: 14
 showToc: true
 ---
 
-Carrier Wave provides iOS home screen widgets, lock screen widgets, and a Live Activity feature to surface key information without opening the app. All widgets use an App Group for shared data access, enabling real-time updates.
+Carrier Wave provides iOS home screen widgets, lock screen widgets, a Live Activity feature, and a watchOS companion app to surface key information without opening the app. All widgets use an App Group for shared data access, enabling real-time updates.
 
 ---
 
@@ -19,6 +19,7 @@ Live Activity displays an active logging session on the lock screen and in the D
 - Operating frequency and {{< term "mode" >}}
 - Park reference (for {{< term "POTA" >}} activations)
 - Last {{< term "callsign" >}} logged
+- Session duration timer
 
 ### Real-Time Updates
 
@@ -27,6 +28,7 @@ The Live Activity updates immediately when:
 - A {{< term "QSO" >}} is logged
 - Frequency or {{< term "mode" >}} changes
 - Session is paused or resumed
+- A milestone is reached (e.g., 10th QSO for POTA activation)
 
 If the app is terminated and relaunched during an active session, the Live Activity reconnects automatically.
 
@@ -35,7 +37,8 @@ If the app is terminated and relaunched during an active session, the Live Activ
 On devices with Dynamic Island, the Live Activity provides:
 
 - **Compact view:** Minimal session info ({{< term "QSO" >}} count and park reference)
-- **Expanded view:** Full session details including frequency, {{< term "mode" >}}, and last {{< term "callsign" >}}
+- **Expanded view:** Full session details including frequency, {{< term "mode" >}}, last {{< term "callsign" >}}, and session duration
+- **Minimal view:** QSO count only (when other Live Activities compete for space)
 
 ### Ending the Activity
 
@@ -43,6 +46,34 @@ The Live Activity clears automatically when:
 
 - You end the logging session
 - The session is deleted
+
+---
+
+## Needs Widget
+
+The Needs widget shows spots that match your configured [Smart Spot Needs](/reference/smart-needs/) categories.
+
+### What It Shows
+
+- **Matching spots** for your need categories (new DXCC, WAS, POTA parks, etc.)
+- **Need category badge** on each spot (e.g., "DXCC", "WAS", "POTA")
+- **Callsign, frequency, and mode** for each matching spot
+- **Age indicator** showing spot freshness
+
+### Sizes
+
+Available in **medium** and **large** widget sizes:
+
+- **Medium** - Shows top 3-4 matching spots
+- **Large** - Shows top 8-10 matching spots with additional detail
+
+### Configuration
+
+Long-press the widget to select which need categories to display. Only spots matching the selected categories appear.
+
+### Tapping the Widget
+
+Tapping opens the Smart Spot Needs view in the main app.
 
 ---
 
@@ -172,6 +203,59 @@ Tapping the Active Session widget navigates directly to the Logger in the main a
 
 ---
 
+## watchOS Companion App
+
+Carrier Wave includes a companion app for Apple Watch that provides glanceable information and quick-start capabilities.
+
+### Solar Conditions
+
+The watch app displays current solar conditions:
+
+- **K-index** with color-coded indicator
+- **SFI** value
+- **Band conditions** summary (compact grid)
+
+Data refreshes when you raise your wrist or when the app receives a background update.
+
+### Live Spots
+
+A scrollable list of current POTA and RBN spots:
+
+- **Callsign and frequency** for each spot
+- **Park reference** for POTA spots
+- **Age indicator**
+- **Complication** shows spot count on the watch face
+
+### Stats & Streaks
+
+View your current operating statistics:
+
+- **Active streak** count and type
+- **QSO count** for today/week/month
+- **Last QSO** time and callsign
+
+### Quick Start
+
+Start a logging session directly from your Apple Watch:
+
+1. Tap **Quick Start** on the watch
+2. Select from recent session presets (mode, frequency, activation type)
+3. Session starts on your iPhone with the selected parameters
+4. The watch displays the Live Activity with QSO count updates
+
+**Note:** QSO entry still happens on the iPhone. The watch provides session monitoring and quick-start convenience.
+
+### Complications
+
+Carrier Wave provides watch face complications:
+
+- **Circular** - Current streak count
+- **Rectangular** - K-index and SFI summary
+- **Inline** - Streak count with label
+- **Corner** - QSO count for today
+
+---
+
 ## Widget Configuration
 
 All widgets support configuration via long-press. Configuration options vary by widget type and include:
@@ -179,6 +263,7 @@ All widgets support configuration via long-press. Configuration options vary by 
 - Metric or streak selection (Stats & Streaks)
 - Band selection (Solar Conditions)
 - Source, band, and {{< term "mode" >}} filters (Radio Spots)
+- Need categories (Needs Widget)
 
 ### App Group
 
@@ -195,6 +280,7 @@ Carrier Wave uses an App Group (`group.com.jsvana.FullDuplex`) to share data bet
 Tapping widgets navigates to specific areas of the app:
 
 - **Radio Spots:** Opens Activity Log
+- **Needs Widget:** Opens Smart Spot Needs view
 - **Active Session:** Opens Logger
 - **Solar Conditions, Stats & Streaks:** Opens Dashboard
 
@@ -203,5 +289,6 @@ Tapping widgets navigates to specific areas of the app:
 ## See Also
 
 - [Dashboard & Statistics](/reference/dashboard/) - Overview of app metrics
+- [Smart Spot Needs](/reference/smart-needs/) - Need-based spot matching
 - [Activity Log](/reference/activity-log/) - Daily QSO tracking and spot monitoring
 - [Logger](/reference/logger/) - QSO entry and session management
