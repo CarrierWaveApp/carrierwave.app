@@ -36,6 +36,6 @@ theme = 'carrier-wave'
     weight = 4
 
 [outputs]
-  home = ['HTML']
+  home = ['HTML', 'JSON']
   section = ['HTML']
   page = ['HTML']
