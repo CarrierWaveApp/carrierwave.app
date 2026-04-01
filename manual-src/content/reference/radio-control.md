@@ -1,6 +1,6 @@
 ---
 title: "Radio Control"
-description: "BLE and WiFi radio connection, frequency/mode sync, and supported protocols"
+description: "BLE, WiFi, and LAN radio connection, frequency/mode sync, and supported protocols"
 weight: 6
 showToc: true
 ---
@@ -18,7 +18,7 @@ Radio Control provides:
 
 ## Connection Transports
 
-Carrier Wave supports two connection transports:
+Carrier Wave supports three connection transports:
 
 ### Bluetooth Low Energy (BLE)
 
@@ -41,9 +41,24 @@ Connect to Icom radios with built-in WiFi (e.g., IC-705) via Access Point or Sta
 - Higher data throughput for scope/waterfall data (CW Sweep)
 - No pairing required — just network connectivity
 
+### LAN (FlexRadio)
+
+Connect to FlexRadio Systems transceivers (FLEX-6400, FLEX-6600, FLEX-6700) via local network TCP/IP or SmartLink remote access. Carrier Wave discovers Flex radios on the local network automatically, or you can connect remotely through SmartLink.
+
+**LAN setup:**
+
+1. Ensure your Flex radio is on the same local network as your iOS device
+2. In Carrier Wave, go to **Settings -> Radio** and select **LAN (FlexRadio)** as the transport
+3. Carrier Wave discovers available Flex radios automatically
+4. Select your radio and tap **Connect**
+
+**SmartLink remote access:**
+
+For remote operation, enable SmartLink on your Flex radio and sign in with your SmartLink account in Carrier Wave. This allows full radio control from anywhere with an internet connection.
+
 ## Supported Protocols
 
-Carrier Wave supports three radio control protocols via BLE or WiFi:
+Carrier Wave supports four radio control protocols via BLE, WiFi, or LAN:
 
 ### Icom CI-V
 
@@ -69,6 +84,15 @@ Computer Aided Transceiver (CAT) protocol for Yaesu radios:
 - **Supported radios:** FT-891, FT-991A, FTDX10, FTDX101D
 - **Commands:** Frequency, mode, power, metering
 - **Format:** Binary command packets
+
+### FlexRadio SmartSDR
+
+TCP-based protocol for FlexRadio Systems transceivers:
+
+- **Supported radios:** FLEX-6400, FLEX-6600, FLEX-6700
+- **Connection:** LAN TCP/IP or SmartLink remote access
+- **Features:** Frequency, mode, PTT control with push-based status updates
+- **Discovery:** Automatic radio discovery via Vita-49 broadcast on local network
 
 ## Device Scanning
 
@@ -161,7 +185,7 @@ Configure radio control behavior in **Settings -> Radio**:
 
 ### Transport Selection
 
-Choose **BLE** or **WiFi** as the connection transport. WiFi is currently supported for Icom CI-V radios only.
+Choose **BLE**, **WiFi**, or **LAN (FlexRadio)** as the connection transport. WiFi is currently supported for Icom CI-V radios only. LAN (FlexRadio) is for FlexRadio Systems transceivers.
 
 ### Protocol Selection
 

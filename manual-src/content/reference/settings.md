@@ -44,6 +44,8 @@ Carrier Wave integrates with multiple amateur radio services for callsign lookup
 - {{< term "QSO" >}} upload and download
 - Bidirectional sync with QRZ Logbook
 
+**Multi-Callsign API Key Mapping:** Users who have changed callsigns or operate under multiple calls can associate separate QRZ API keys with each callsign. During sync, {{< term "QSO" >}}s are automatically routed to the correct QRZ logbook based on their myCallsign field. Previous callsigns without an associated API key are shown as "unlinked" in QRZ settings.
+
 **Requirements:** QRZ XML Logbook Data subscription is required for callsign lookups.
 
 ### POTA

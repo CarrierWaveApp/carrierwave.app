@@ -183,6 +183,19 @@ Carrier Wave uses a **ring buffer** (5-second capacity) to smooth out network ji
 
 Audio continues playing when you background the app or lock your device. The connection remains active, and recording continues.
 
+## Instant Replay
+
+During a live WebSDR session, tap the **Replay** button in the WebSDR panel to instantly re-hear the last 15 seconds of captured audio. This is useful when you miss part of a callsign or exchange.
+
+### Triggering Replay
+
+You can trigger a replay in three ways:
+
+- **Replay button** in the WebSDR panel toolbar
+- **Logger commands:** Type `REPLAY`, `AGN`, or `HUH` in the callsign entry field
+
+The replay plays back the buffered audio without interrupting the live connection. New audio continues to be captured during playback.
+
 ## WebSDR Panel
 
 The WebSDR panel (visible while connected) displays:
