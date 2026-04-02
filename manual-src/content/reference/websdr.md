@@ -362,8 +362,8 @@ Deleted recordings cannot be recovered.
 
 ## See Also
 
-- [Logger]({{< relref "logger.md" >}}) -- Commands and logging flow
-- [CW Transcription]({{< relref "cw-transcription.md" >}}) -- Morse decoding with WebSDR audio
-- [POTA]({{< relref "pota.md" >}}) -- Activation workflow
-- [Export & Sharing]({{< relref "export.md" >}}) -- Clip export and share cards
-- [Settings]({{< relref "settings.md" >}}) -- WebSDR preferences
+- [Logger](/reference/logger/) -- Commands and logging flow
+- [CW Transcription](/reference/cw-transcription/) -- Morse decoding with WebSDR audio
+- [POTA](/reference/pota/) -- Activation workflow
+- [Export & Sharing](/reference/export/) -- Clip export and share cards
+- [Settings](/reference/settings/) -- WebSDR preferences
